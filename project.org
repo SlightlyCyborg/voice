@@ -38,10 +38,9 @@ The trainer will run on a gpu enabled machine that will generate the model
 The speaker will be an application that will provide an API to generate audio given text.
 The speaker will run on all platforms (android and desktop).
 
-
-
 ** Work Outline:
-*** Planning Phase
+*** DONE Planning Phase
+		CLOSED: [2016-12-13 Tue 08:40]
 **** DONE Discover dependencies
 		CLOSED: [2016-12-07 Wed 17:54]
 **** DONE Consider what data should be the first to train on
@@ -53,7 +52,7 @@ The speaker will run on all platforms (android and desktop).
 		 CLOSED: [2016-12-09 Fri 20:10]
 **** DONE Make a list of steps to completion
 		 CLOSED: [2016-12-10 Sat 22:53]
-*** Production Phase
+*** TODO Production Phase
 **** DONE Set up my netbook to run deeplearning4j
 		 CLOSED: [2016-12-13 Tue 07:45]
 ***** DONE Launch a repl
@@ -81,6 +80,9 @@ The speaker will run on all platforms (android and desktop).
 **** DONE Set up the voice github repository
 		 CLOSED: [2016-12-13 Tue 07:49]
 **** Trainer
+***** DONE test mnist on desktop
+			CLOSED: [2016-12-13 Tue 09:26]
+
 ***** TODO write a phoneme recognizer
 ****** TODO collect phoneme samples
 ****** TODO write up an archetecture
@@ -121,9 +123,16 @@ The speaker will run on all platforms (android and desktop).
 **** Sampler
 ***** TODO Templating
 ****** TODO Login
-****** TODO Dashboard
-****** TODO Sampling Page
+****** DONE Dashboard
+			 CLOSED: [2016-12-13 Tue 15:24]
+******* DONE Content
+				CLOSED: [2016-12-13 Tue 10:43]
+******* DONE CSS
+				CLOSED: [2016-12-13 Tue 15:24]
+****** DONE Sampling Page
+			 CLOSED: [2016-12-13 Tue 17:36]
 ****** TODO Model Payment/Credit Code
+****** TODO Test Model page
 ***** TODO Server
 ****** TODO Serve Templates
 ****** TODO defn start-sampling
@@ -153,7 +162,7 @@ The speaker will run on all platforms (android and desktop).
 ***** TODO install clojure 
 ***** TODO install deeplearning4j
 ***** TODO run the deeplearning4j test
-*** Sales & Marketing Phase
+*** TODO Sales & Marketing Phase
 **** TODO write copy
 **** TODO write demo-script
 **** TODO get a camera
