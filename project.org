@@ -78,7 +78,8 @@ The speaker will run on all platforms (android and desktop).
 			 CLOSED: [2016-12-11 Sun 01:06]
 ****** DONE Write network for mnist data
 			 CLOSED: [2016-12-11 Sun 16:53]
-**** TODO Set up the voice github repository
+**** DONE Set up the voice github repository
+		 CLOSED: [2016-12-13 Tue 07:49]
 **** Trainer
 ***** TODO write a phoneme recognizer
 ****** TODO collect phoneme samples
