@@ -1,0 +1,188 @@
+* The voice project
+** Mission: 
+Build a framework for generating and using voice neural net models.
+I will sell custom models to clients who desire them as well as use donated models for an OSS version
+
+
+** Business Plan:
+Users purchase a custome model
+Users use our web app to record send voice samples.
+The samples are then used to train a model. 
+When their model is ready they recieve an email update.
+The user can then download their model and plug it into the open source framework.
+
+
+** Marginal Costs:
+- Server that hosts the app. Unknown
+- The compute used to train the model. Unknown
+	
+
+** Software modules:
+*** The sampler
+**** Description:
+The sampler is a web app that will collect the data needed to train a custom voice model.
+Users will create an account that is tied to model credits.
+A user can begin recording the audio neccissary for their custom model.
+The sampler will require the user to record themselves speaking the given sentences.
+After the sampling is finished, the user will then pay a credit and submit their samples.
+
+*** The trainer
+**** Description:
+The trainer will run on a gpu enabled machine that will generate the model		 
+
+**** Dependencies
+- deeplearning4j
+
+*** The speaker 
+**** Description:
+The speaker will be an application that will provide an API to generate audio given text.
+The speaker will run on all platforms (android and desktop).
+
+
+
+** Work Outline:
+*** Planning Phase
+**** DONE Discover dependencies
+		CLOSED: [2016-12-07 Wed 17:54]
+**** DONE Consider what data should be the first to train on
+		 CLOSED: [2016-12-07 Wed 18:19]
+		 I will train on portions of the Hitchhikers Guide to the Galexy
+**** DONE Develop an archetecture outline
+		 CLOSED: [2016-12-07 Wed 18:27]
+**** DONE Diagram the archetectures
+		 CLOSED: [2016-12-09 Fri 20:10]
+**** DONE Make a list of steps to completion
+		 CLOSED: [2016-12-10 Sat 22:53]
+*** Production Phase
+**** DONE Set up my netbook to run deeplearning4j
+		 CLOSED: [2016-12-13 Tue 07:45]
+***** DONE Launch a repl
+			CLOSED: [2016-12-10 Sat 23:13]
+***** DONE Edit project.org
+			CLOSED: [2016-12-10 Sat 23:13]
+***** DONE Load in jblas
+			CLOSED: [2016-12-10 Sat 23:55]
+***** DONE Find example code for testing deeplearning4j
+			CLOSED: [2016-12-10 Sat 23:55]
+***** DONE Write a clojure mnist example to learn deeplearning4j
+			CLOSED: [2016-12-13 Tue 07:45]
+****** DONE Grab mnist data and put it into resources
+			 CLOSED: [2016-12-11 Sun 00:21]
+****** DONE Create new repo for the mnist-clojure
+			 CLOSED: [2016-12-11 Sun 00:21]
+****** DONE Learn how to extract the images into a format that can be used for deeplearning4j
+			 CLOSED: [2016-12-11 Sun 00:35]
+****** DONE Set up nd4j
+			 CLOSED: [2016-12-11 Sun 01:06]
+****** DONE Load in the mnist dataset
+			 CLOSED: [2016-12-11 Sun 01:06]
+****** DONE Write network for mnist data
+			 CLOSED: [2016-12-11 Sun 16:53]
+**** TODO Set up the voice github repository
+**** Trainer
+***** TODO write a phoneme recognizer
+****** TODO collect phoneme samples
+****** TODO write up an archetecture
+****** TODO train the archetecture to recognize phonemes in the data
+****** TODO validate
+***** TODO write split-audio
+ split-audio cuts audio into evenly sliced sections of arbitrary length
+ a size of <= to length will be the length of the last chunk
+***** TODO write audio-to-fq-spectrum
+ this will convert raw audio into a fq-spectrum
+ fq-spectrum must have metadeta like the audio length of each "pixel"
+ known use case is for obtaining synthesizer training data
+***** TODO write split-fq-spectrum
+ this will split an fq-spectrum into a given length
+ this length can be specified in pixels or in audio ms (based on meta data)
+***** TODO write function that encodes the spectrum into 1 hot phenoms
+***** Modulator
+****** TODO The generator function
+******* TODO convert that data into fq-spectrum
+******* TODO pad the fq-spectrum with 0's, pad the original audio with 00s
+******* TODO cut the training data into appropriate sized sections 
+******* TODO partition the fqs into groups of 3s that overlap
+******* TODO feed that data through the arch, and output an audio segment that represents the middle fq clip sound
+****** TODO Write the loss function
+******* TODO 
+****** TODO Write an archetecture that can underfit the modulator model
+******* TODO write a candidate arch on my netbook
+******* TODO push it to the repo and pull onto g2 server
+******* TODO train with a small amount of converted-fq-data & coresponding audio-fq
+***** Sythesizer
+****** TODO underfit a synth model by doing the following...
+******* TODO write a convnet arch on my netbook
+******* TODO transfer the convet arch to the g2 server
+******* TODO train the arch using a small amount of audio data
+******* TODO test, to make sure that a small text sample can replicate the correct fq
+***** Pacer
+****** TODO train a phoneme pacer that predicts the length of time for each phoneme based on surrounding phonemes and other linguistic features
+**** Sampler
+***** TODO Templating
+****** TODO Login
+****** TODO Dashboard
+****** TODO Sampling Page
+****** TODO Model Payment/Credit Code
+***** TODO Server
+****** TODO Serve Templates
+****** TODO defn start-sampling
+****** TODO defn save-sample
+****** TODO defn load-sample
+****** TODO defn initiate-training
+****** TODO defn password-check
+****** TODO defn check-credit
+****** TODO defn add-credit-to-user
+****** TODO defn start-model
+****** TODO defn buy-model
+****** TODO defn send-update-email
+****** TODO defn accept-sentence
+****** TODO defn save-sentence
+***** TODO Cleint
+****** TODO defn update-sample-progress
+****** TODO defn advance-sampler
+****** TODO defn send-sample
+**** Speaker
+***** TODO defn load-module
+***** TODO defn speak
+**** TODO Set up AWS for machine learning!
+***** TODO Research how to test a vanilla deep learning install
+***** TODO Research how to test a deeplearning4j install
+***** TODO Launch a g2 instance using deep learning AMI
+***** TODO Run the vanilla deep learning test
+***** TODO install clojure 
+***** TODO install deeplearning4j
+***** TODO run the deeplearning4j test
+*** Sales & Marketing Phase
+**** TODO write copy
+**** TODO write demo-script
+**** TODO get a camera
+**** TODO film demo
+**** TODO talk to people about it
+**** TODO launch
+**** TODO PROFIT!!!!
+		
+
+** Archetecture Outline
+***** Sampler
+****** Login page
+****** Dashboard
+****** Sample collection page
+****** Payment Page
+****** Submission confirmation page
+***** Trainer
+****** Data acceptance
+****** Data seperation
+****** Pronounciation Tagger
+****** Frequency Form Generator
+- Frequency loss function
+****** fq2waveform
+- Waveform loss function
+***** Speaker
+****** Text acceptence api
+****** Model loader
+****** Model runner
+****** Audio output
+***** Integration
+****** Sampler to trainer
+****** Automated emailing of samples
+
