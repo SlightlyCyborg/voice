@@ -121,8 +121,10 @@ The speaker will run on all platforms (android and desktop).
 ***** Pacer
 ****** TODO train a phoneme pacer that predicts the length of time for each phoneme based on surrounding phonemes and other linguistic features
 **** Sampler
-***** TODO Templating
-****** TODO Login
+***** DONE Templating
+			CLOSED: [2016-12-13 Tue 19:11]
+****** DONE Login
+			 CLOSED: [2016-12-13 Tue 18:12]
 ****** DONE Dashboard
 			 CLOSED: [2016-12-13 Tue 15:24]
 ******* DONE Content
@@ -131,10 +133,36 @@ The speaker will run on all platforms (android and desktop).
 				CLOSED: [2016-12-13 Tue 15:24]
 ****** DONE Sampling Page
 			 CLOSED: [2016-12-13 Tue 17:36]
-****** TODO Model Payment/Credit Code
-****** TODO Test Model page
+****** DONE Register
+			 CLOSED: [2016-12-13 Tue 18:18]
+****** DONE Model Payment/Credit Code
+			 CLOSED: [2016-12-13 Tue 19:06]
+****** DONE Test Model page
+			 CLOSED: [2016-12-13 Tue 19:11]
 ***** TODO Server
-****** TODO Serve Templates
+****** DONE Serve Templates
+			 CLOSED: [2016-12-13 Tue 19:12]
+****** DONE install postgresql
+			 CLOSED: [2016-12-14 Wed 16:13]
+****** DONE create db tables
+			 CLOSED: [2016-12-14 Wed 16:13]
+****** DONE create the sampler scripts
+			 CLOSED: [2016-12-16 Fri 00:49]
+
+******* DONE Download HHGTTG
+				CLOSED: [2016-12-16 Fri 00:36]
+******* DONE Load HHGTTG into memory
+				CLOSED: [2016-12-16 Fri 00:48]
+******* DONE Partition text into scripts of 20 sentences.
+				CLOSED: [2016-12-16 Fri 00:48]
+****** DONE defn script/http-get to get appropriate scripts
+			 CLOSED: [2016-12-16 Fri 21:42]
+******* DONE send script json
+				CLOSED: [2016-12-16 Fri 20:07]
+******* DONE install nlp library to better parse sentences
+				CLOSED: [2016-12-16 Fri 21:42]
+****** TODO connect server to database
+******* TODO install jdbc
 ****** TODO defn start-sampling
 ****** TODO defn save-sample
 ****** TODO defn load-sample

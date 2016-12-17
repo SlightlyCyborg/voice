@@ -6,8 +6,6 @@
             [voice.sampler.templates.css :as css]))
 
 
-
-
 (defn render [req data]
   (html
    [:html

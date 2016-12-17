@@ -12,8 +12,10 @@
                  [org.nd4j/nd4j-native "0.7.1"]
 
                  ;for the sampler
-                 [http-kit "2.2.0"]
+                 [clojure-opennlp "0.3.3"]
                  [compojure "1.5.1"]
                  [hiccup "1.0.5"]
-                 [garden "1.3.2"]]
+                 [http-kit "2.2.0"]
+                 [garden "1.3.2"]
+                 [org.clojure/data.json "0.2.6"]]
   :profiles {:dev {:dependencies [[alembic "0.3.2"]]}})
