@@ -161,8 +161,16 @@ The speaker will run on all platforms (android and desktop).
 				CLOSED: [2016-12-16 Fri 20:07]
 ******* DONE install nlp library to better parse sentences
 				CLOSED: [2016-12-16 Fri 21:42]
-****** TODO connect server to database
-******* TODO install jdbc
+****** DONE connect server to database
+			 CLOSED: [2016-12-17 Sat 20:48]
+******* DONE install jdbc
+				CLOSED: [2016-12-16 Fri 21:59]
+******* DONE make namespace database.clj
+				CLOSED: [2016-12-17 Sat 20:48]
+****** DONE defn authenticate
+			 CLOSED: [2016-12-17 Sat 21:41]
+****** DONE defn create-user
+			 CLOSED: [2016-12-18 Sun 01:38]
 ****** TODO defn start-sampling
 ****** TODO defn save-sample
 ****** TODO defn load-sample
@@ -176,6 +184,10 @@ The speaker will run on all platforms (android and desktop).
 ****** TODO defn accept-sentence
 ****** TODO defn save-sentence
 ***** TODO Cleint
+****** DONE request-script
+			 CLOSED: [2016-12-18 Sun 13:58]
+****** DONE defn insert-script-segment-into-page
+			 CLOSED: [2016-12-18 Sun 14:08]
 ****** TODO defn update-sample-progress
 ****** TODO defn advance-sampler
 ****** TODO defn send-sample

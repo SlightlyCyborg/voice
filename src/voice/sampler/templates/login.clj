@@ -13,7 +13,7 @@
     [:body
      [:div {:id "centered"}
       [:h1 "Log In"]
-      [:form
+      [:form {:method "post" :action "login"}
        [:span "Username: "
         [:input {:name "username" :class "form-control"}]]
        [:span "Password: "

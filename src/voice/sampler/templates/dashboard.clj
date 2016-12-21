@@ -16,8 +16,7 @@
      [:div {:id "centered"}
       [:h1 "Welcome to your voice dashboard"]
       [:div {:id "main-content"}
-       (progress-bar/render
-        (data :samples-completed) (data :samples-total))
+       (progress-bar/render "model-progress")
        [:div {:id "menu"}
         [:a {:href "sampler" :class "btn btn-info" :role "button"} "Start Next Sample"]
         [:br]

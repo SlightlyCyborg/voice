@@ -49,7 +49,7 @@
 
 (defn login-post [{session :session params :params}]
   (if-let [user-id (db/authenticated? (params :username) (params :password))]
-    (-> (res-util/redirect "/dashboard")
+    (-> (res-util/redirect "/")
         (assoc :session (assoc session :user-id user-id)))))
 
 (defn logout [req]

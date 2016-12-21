@@ -13,11 +13,11 @@
     [:body
      [:div {:id "centered"}
       [:h1 "Register User"]
-      [:form
+      [:form {:action "register" :method "post"}
        [:span "Username: "
         [:input {:name "username" :class "form-control"}]]
        [:span "Password: "
-        [:input {:name "password" :class "form-control"}]]
+        [:input {:name "password" :class "form-control" :type "password"}]]
        [:span "Email: "
         [:input {:name "email" :class "form-control"}]]
        [:button {:type "submit"

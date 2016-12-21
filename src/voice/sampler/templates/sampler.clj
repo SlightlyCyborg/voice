@@ -26,10 +26,11 @@
       [:div {:id :main-content}
        [:div {:id :instructions}]
        [:div {:id :script-box}
-        [:span "Press spacebar to begin"]]
-       (progress-bar/render (data :points-complete) (data :points-total))]]
+        [:span "Loading Script..."]]
+       (progress-bar/render "samples-progress")]]
      js/jquery
-     js/bootstrap]]))
+     js/bootstrap
+     js/cljs]]))
 
 
 

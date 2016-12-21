@@ -7,3 +7,20 @@
 
 (def bootstrap
   [:script {:src "bootstrap/js/bootstrap.min.js"}])
+
+(def cljs
+  [:script {:src "js/main.js" :type "text/javascript"}])
+
+(def goog
+  [:script {:src "js/out/goog/base.js"}])
+
+
+
+
+
+
+
+
+
+
+

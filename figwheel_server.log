@@ -1,0 +1,361 @@
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[31mFailed to compile "resources/public/js/main.js" in 0.295 seconds.[0m
+[36m----  Could not Read  src/cljs/voice/sampler.cljs   line:7  column:11  ----[0m
+
+  [1mInvalid token: :[0m
+
+  [36m5[0m  [36m(ajax "sample-script"[0m
+  [36m6[0m  [36m      {:data {:id id}[0m
+  [33m7[0m  [1m       :}))[0m
+  [0m [0m  [33m        ^--- Invalid token: :[0m
+
+[36m----  Reader Error : Please see src/cljs/voice/sampler.cljs  ----[0m
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.35 seconds.[0m
+notifying browser that file changed:  resources/public/js/main.js
+notifying browser that file changed:  resources/public/js/out/goog/deps.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[31mFailed to compile "resources/public/js/main.js" in 0.309 seconds.[0m
+[36m----  Could not Analyze  src/cljs/voice/sampler.cljs   line:18  column:1  ----[0m
+
+  [1mlet requires a vector for its binding[0m
+
+  [33m18[0m  [1m(let script (request-script 1)[0m
+  [0m  [0m  [33m^--- let requires a vector for its binding[0m
+  [36m19[0m  [36m     )[0m
+
+[36m----  Analysis Error : Please see src/cljs/voice/sampler.cljs  ----[0m
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.319 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[31mFailed to compile "resources/public/js/main.js" in 0.293 seconds.[0m
+[36m----  Could not Analyze  src/cljs/voice/sampler.cljs  ----[0m
+
+  [1mNo such namespace: cljs-ajax, could not locate cljs_ajax.cljs, cljs_ajax.cljc, or Closure namespace "cljs-ajax" [0m
+
+[36m----  Analysis Error : Please see src/cljs/voice/sampler.cljs  ----[0m
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[31mFailed to compile "resources/public/js/main.js" in 0.266 seconds.[0m
+[36m----  Could not Analyze  src/cljs/voice/sampler.cljs  ----[0m
+
+  [1mNo such namespace: ajax.core, could not locate ajax/core.cljs, ajax/core.cljc, or Closure namespace "ajax.core" [0m
+
+[36m----  Analysis Error : Please see src/cljs/voice/sampler.cljs  ----[0m
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:13  column:1  ----[0m
+
+  [1mrequest-script at line 6 is being replaced[0m
+
+  [36m 9[0m  [36m          :method "GET"[0m
+  [36m10[0m  [36m          :dataType "json"[0m
+  [36m11[0m  [36m          :error #(.log js/console "an error occured")}))[0m
+  [36m12[0m  [36m[0m
+  [33m13[0m  [1m(defn request-script [id][0m
+  [0m  [0m  [33m^--- request-script at line 6 is being replaced[0m
+  [36m14[0m  [36m  (print id))[0m
+  [36m15[0m  [36m[0m
+  [36m16[0m  [36m[0m
+  [36m17[0m  [36m(defn insert-script-segment-into-page [script-segment][0m
+  [36m18[0m  [36m  (-> ($ :#script-box)[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.523 seconds.[0m
+notifying browser that file changed:  resources/public/js/main.js
+notifying browser that file changed:  resources/public/js/out/goog/deps.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:13  column:1  ----[0m
+
+  [1mrequest-script at line 6 is being replaced[0m
+
+  [36m 9[0m  [36m          :method "GET"[0m
+  [36m10[0m  [36m          :dataType "json"[0m
+  [36m11[0m  [36m          :error #(.log js/console "an error occured")}))[0m
+  [36m12[0m  [36m[0m
+  [33m13[0m  [1m(defn request-script [id][0m
+  [0m  [0m  [33m^--- request-script at line 6 is being replaced[0m
+  [36m14[0m  [36m  (print id))[0m
+  [36m15[0m  [36m[0m
+  [36m16[0m  [36m[0m
+  [36m17[0m  [36m(defn insert-script-segment-into-page [script-segment][0m
+  [36m18[0m  [36m  (-> ($ :#script-box)[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.457 seconds.[0m
+notifying browser that file changed:  resources/public/js/main.js
+notifying browser that file changed:  resources/public/js/out/goog/deps.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.393 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.423 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:23  column:29  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/script[0m
+
+  [36m19[0m  [36m      (jq/append script-segment)))[0m
+  [36m20[0m  [36m[0m
+  [36m21[0m  [36m(defn handle-spacebar [ev][0m
+  [36m22[0m  [36m  (let [next-index (+ 1 (@sampler-state :cur-script-index))][0m
+  [33m23[0m  [1m   (if (< next-index (count script))[0m
+  [0m  [0m  [33m                            ^--- Use of undeclared Var voice.sampler/script[0m
+  [36m24[0m  [36m     (do (insert-script-segment-into-page (nth script next-index))[0m
+  [36m25[0m  [36m         (swap! sampler-state assoc :cur-script-index next-index)))))[0m
+  [36m26[0m  [36m[0m
+  [36m27[0m  [36m(defn keypress-handler [ev][0m
+  [36m28[0m  [36m  (if (= 32 (.-charCode ev))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:24  column:48  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/script[0m
+
+  [36m21[0m  [36m(defn handle-spacebar [ev][0m
+  [36m22[0m  [36m  (let [next-index (+ 1 (@sampler-state :cur-script-index))][0m
+  [36m23[0m  [36m   (if (< next-index (count script))[0m
+  [33m24[0m  [1m     (do (insert-script-segment-into-page (nth script next-index))[0m
+  [0m  [0m  [33m                                               ^--- Use of undeclared Var voice.sampler/script[0m
+  [36m25[0m  [36m         (swap! sampler-state assoc :cur-script-index next-index)))))[0m
+  [36m26[0m  [36m[0m
+  [36m27[0m  [36m(defn keypress-handler [ev][0m
+  [36m28[0m  [36m  (if (= 32 (.-charCode ev))[0m
+  [36m29[0m  [36m    (handle-spacebar)))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:29  column:5  ----[0m
+
+  [1mWrong number of args (0) passed to voice.sampler/handle-spacebar[0m
+
+  [36m25[0m  [36m         (swap! sampler-state assoc :cur-script-index next-index)))))[0m
+  [36m26[0m  [36m[0m
+  [36m27[0m  [36m(defn keypress-handler [ev][0m
+  [36m28[0m  [36m  (if (= 32 (.-charCode ev))[0m
+  [33m29[0m  [1m    (handle-spacebar)))[0m
+  [0m  [0m  [33m    ^--- Wrong number of args (0) passed to voice.sampler/handle-spacebar[0m
+  [36m30[0m  [36m[0m
+  [36m31[0m  [36m(defn reset-keypress-handler [][0m
+  [36m32[0m  [36m  (turn-off-keypress-handler)[0m
+  [36m33[0m  [36m  (turn-on-keypress-handler)[0m
+  [36m34[0m  [36m  (insert-script-segment-into-page (first script))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:32  column:4  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/turn-off-keypress-handler[0m
+
+  [36m28[0m  [36m  (if (= 32 (.-charCode ev))[0m
+  [36m29[0m  [36m    (handle-spacebar)))[0m
+  [36m30[0m  [36m[0m
+  [36m31[0m  [36m(defn reset-keypress-handler [][0m
+  [33m32[0m  [1m  (turn-off-keypress-handler)[0m
+  [0m  [0m  [33m   ^--- Use of undeclared Var voice.sampler/turn-off-keypress-handler[0m
+  [36m33[0m  [36m  (turn-on-keypress-handler)[0m
+  [36m34[0m  [36m  (insert-script-segment-into-page (first script))[0m
+  [36m35[0m  [36m  (swap! sampler-state assoc :cur-script-index 0))[0m
+  [36m36[0m  [36m[0m
+  [36m37[0m  [36m(defn turn-on-keypress-handler [][0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:33  column:4  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/turn-on-keypress-handler[0m
+
+  [36m29[0m  [36m    (handle-spacebar)))[0m
+  [36m30[0m  [36m[0m
+  [36m31[0m  [36m(defn reset-keypress-handler [][0m
+  [36m32[0m  [36m  (turn-off-keypress-handler)[0m
+  [33m33[0m  [1m  (turn-on-keypress-handler)[0m
+  [0m  [0m  [33m   ^--- Use of undeclared Var voice.sampler/turn-on-keypress-handler[0m
+  [36m34[0m  [36m  (insert-script-segment-into-page (first script))[0m
+  [36m35[0m  [36m  (swap! sampler-state assoc :cur-script-index 0))[0m
+  [36m36[0m  [36m[0m
+  [36m37[0m  [36m(defn turn-on-keypress-handler [][0m
+  [36m38[0m  [36m  (jq/on ($ :html)[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:34  column:43  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/script[0m
+
+  [36m31[0m  [36m(defn reset-keypress-handler [][0m
+  [36m32[0m  [36m  (turn-off-keypress-handler)[0m
+  [36m33[0m  [36m  (turn-on-keypress-handler)[0m
+  [33m34[0m  [1m  (insert-script-segment-into-page (first script))[0m
+  [0m  [0m  [33m                                          ^--- Use of undeclared Var voice.sampler/script[0m
+  [36m35[0m  [36m  (swap! sampler-state assoc :cur-script-index 0))[0m
+  [36m36[0m  [36m[0m
+  [36m37[0m  [36m(defn turn-on-keypress-handler [][0m
+  [36m38[0m  [36m  (jq/on ($ :html)[0m
+  [36m39[0m  [36m         :keypress[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.455 seconds.[0m
+notifying browser that file changed:  resources/public/js/main.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:31  column:5  ----[0m
+
+  [1mWrong number of args (0) passed to voice.sampler/handle-spacebar[0m
+
+  [36m27[0m  [36m         (swap! sampler-state assoc :cur-script-index next-index)))))[0m
+  [36m28[0m  [36m[0m
+  [36m29[0m  [36m(defn keypress-handler [ev][0m
+  [36m30[0m  [36m  (if (= 32 (.-charCode ev))[0m
+  [33m31[0m  [1m    (handle-spacebar)))[0m
+  [0m  [0m  [33m    ^--- Wrong number of args (0) passed to voice.sampler/handle-spacebar[0m
+  [36m32[0m  [36m[0m
+  [36m33[0m  [36m(defn reset-keypress-handler [][0m
+  [36m34[0m  [36m  (turn-off-keypress-handler)[0m
+  [36m35[0m  [36m  (turn-on-keypress-handler)[0m
+  [36m36[0m  [36m  (insert-script-segment-into-page (first script))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:34  column:4  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/turn-off-keypress-handler[0m
+
+  [36m30[0m  [36m  (if (= 32 (.-charCode ev))[0m
+  [36m31[0m  [36m    (handle-spacebar)))[0m
+  [36m32[0m  [36m[0m
+  [36m33[0m  [36m(defn reset-keypress-handler [][0m
+  [33m34[0m  [1m  (turn-off-keypress-handler)[0m
+  [0m  [0m  [33m   ^--- Use of undeclared Var voice.sampler/turn-off-keypress-handler[0m
+  [36m35[0m  [36m  (turn-on-keypress-handler)[0m
+  [36m36[0m  [36m  (insert-script-segment-into-page (first script))[0m
+  [36m37[0m  [36m  (swap! sampler-state assoc :cur-script-index 0))[0m
+  [36m38[0m  [36m[0m
+  [36m39[0m  [36m(defn turn-on-keypress-handler [][0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:35  column:4  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/turn-on-keypress-handler[0m
+
+  [36m31[0m  [36m    (handle-spacebar)))[0m
+  [36m32[0m  [36m[0m
+  [36m33[0m  [36m(defn reset-keypress-handler [][0m
+  [36m34[0m  [36m  (turn-off-keypress-handler)[0m
+  [33m35[0m  [1m  (turn-on-keypress-handler)[0m
+  [0m  [0m  [33m   ^--- Use of undeclared Var voice.sampler/turn-on-keypress-handler[0m
+  [36m36[0m  [36m  (insert-script-segment-into-page (first script))[0m
+  [36m37[0m  [36m  (swap! sampler-state assoc :cur-script-index 0))[0m
+  [36m38[0m  [36m[0m
+  [36m39[0m  [36m(defn turn-on-keypress-handler [][0m
+  [36m40[0m  [36m  (jq/on ($ :html)[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:53  column:16  ----[0m
+
+  [1mscript at line 6 is being replaced[0m
+
+  [36m49[0m  [36m  )[0m
+  [36m50[0m  [36m[0m
+  [36m51[0m  [36m(defn initfn [][0m
+  [36m52[0m  [36m (-> (request-script 1)[0m
+  [33m53[0m  [1m     (jq/done #(def script %)))[0m
+  [0m  [0m  [33m               ^--- script at line 6 is being replaced[0m
+  [36m54[0m  [36m  (begin-sampling script))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.434 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:34  column:4  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/turn-off-keypress-handler[0m
+
+  [36m30[0m  [36m  (if (= 32 (.-charCode ev))[0m
+  [36m31[0m  [36m    (handle-spacebar ev)))[0m
+  [36m32[0m  [36m[0m
+  [36m33[0m  [36m(defn reset-keypress-handler [][0m
+  [33m34[0m  [1m  (turn-off-keypress-handler)[0m
+  [0m  [0m  [33m   ^--- Use of undeclared Var voice.sampler/turn-off-keypress-handler[0m
+  [36m35[0m  [36m  (turn-on-keypress-handler)[0m
+  [36m36[0m  [36m  (insert-script-segment-into-page (first script))[0m
+  [36m37[0m  [36m  (swap! sampler-state assoc :cur-script-index 0))[0m
+  [36m38[0m  [36m[0m
+  [36m39[0m  [36m(defn turn-on-keypress-handler [][0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:35  column:4  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/turn-on-keypress-handler[0m
+
+  [36m31[0m  [36m    (handle-spacebar ev)))[0m
+  [36m32[0m  [36m[0m
+  [36m33[0m  [36m(defn reset-keypress-handler [][0m
+  [36m34[0m  [36m  (turn-off-keypress-handler)[0m
+  [33m35[0m  [1m  (turn-on-keypress-handler)[0m
+  [0m  [0m  [33m   ^--- Use of undeclared Var voice.sampler/turn-on-keypress-handler[0m
+  [36m36[0m  [36m  (insert-script-segment-into-page (first script))[0m
+  [36m37[0m  [36m  (swap! sampler-state assoc :cur-script-index 0))[0m
+  [36m38[0m  [36m[0m
+  [36m39[0m  [36m(defn turn-on-keypress-handler [][0m
+  [36m40[0m  [36m  (jq/on ($ :html)[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:53  column:16  ----[0m
+
+  [1mscript at line 6 is being replaced[0m
+
+  [36m49[0m  [36m  )[0m
+  [36m50[0m  [36m[0m
+  [36m51[0m  [36m(defn initfn [][0m
+  [36m52[0m  [36m (-> (request-script 1)[0m
+  [33m53[0m  [1m     (jq/done #(def script %)))[0m
+  [0m  [0m  [33m               ^--- script at line 6 is being replaced[0m
+  [36m54[0m  [36m  (begin-sampling script))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.42 seconds.[0m
+notifying browser that file changed:  resources/public/js/main.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:53  column:16  ----[0m
+
+  [1mscript at line 6 is being replaced[0m
+
+  [36m49[0m  [36m  )[0m
+  [36m50[0m  [36m[0m
+  [36m51[0m  [36m(defn initfn [][0m
+  [36m52[0m  [36m (-> (request-script 1)[0m
+  [33m53[0m  [1m     (jq/done #(def script %)))[0m
+  [0m  [0m  [33m               ^--- script at line 6 is being replaced[0m
+  [36m54[0m  [36m  (begin-sampling script))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.397 seconds.[0m
+notifying browser that file changed:  resources/public/js/main.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.392 seconds.[0m
+notifying browser that file changed:  resources/public/js/main.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.417 seconds.[0m
+notifying browser that file changed:  resources/public/js/main.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.382 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.714 seconds.[0m
+notifying browser that file changed:  resources/public/js/main.js
+notifying browser that file changed:  resources/public/js/out/goog/deps.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.448 seconds.[0m
+notifying browser that file changed:  resources/public/js/main.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.414 seconds.[0m
+notifying browser that file changed:  resources/public/js/main.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.388 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
