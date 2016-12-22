@@ -58,30 +58,39 @@
          (update-cur-samples next-index)
          (swap! sampler-state assoc :cur-script-index next-index)))))
 
-(defn keypress-handler [ev]
-  (if (= 32 (.-charCode ev))
-    (handle-spacebar ev)))
 
-(defn turn-on-keypress-handler []
+(defn gen-multi-keypress-handler [key-fn-map]
+  #(doall
+    (map
+     (fn [v]
+       (if (= (first v) 
+              (.-charCode %))
+         ((second v))))
+     key-fn-map)))
+
+(defn turn-on-keypress-handler
+  "Takes an argument of a map that contains the charCode & functions to execute when keys are pressed"
+  [key-fn-map]
   (jq/on ($ :html)
          :keypress
-         keypress-handler))
+         (gen-multi-keypress-handler
+          key-fn-map)))
 
 (defn turn-off-keypress-handler []
   (jq/off ($ :html) :keypress))
 
-(defn reset-keypress-handler []
+(defn reset-keypress-handler [key-fn-map]
   (let [script (@sampler-state :script)]
    (turn-off-keypress-handler)
-   (turn-on-keypress-handler)
-   (change-script-box (first script))
-   (swap! sampler-state assoc :cur-script-index 0)))
+   (turn-on-keypress-handler key-fn-map)))
 
 ;;init functions------------------
 
 (defn begin-sampling []
   (let [s (@sampler-state :script)]
-    (reset-keypress-handler)
+    (change-script-box (first s))
+    (swap! sampler-state assoc :cur-script-index 0)
+    (reset-keypress-handler {32 handle-spacebar})
     (update-total-samples (count s))
     (update-cur-samples 0)))
 
@@ -93,13 +102,10 @@
    (fn [script]
      (swap! sampler-state assoc :script script)
      (change-script-box "Press Spacebar to Begin!")
-     (jq/on ($ :html)
-            :keypress
-            #(if (= 32 (.-charCode %))
-              (begin-sampling))))))
+     (turn-on-keypress-handler {32 begin-sampling}))))
 
 (initfn)
 
-(.log js/consol "js loaded")
+(.log js/console "cljs loaded")
 
 

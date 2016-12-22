@@ -41,32 +41,39 @@ return cljs.core.swap_BANG_.call(null,voice.sampler.sampler_state,cljs.core.asso
 return null;
 }
 });
-voice.sampler.keypress_handler = (function voice$sampler$keypress_handler(ev){
-if(cljs.core._EQ_.call(null,(32),ev.charCode)){
-return voice.sampler.handle_spacebar.call(null,ev);
+voice.sampler.gen_multi_keypress_handler = (function voice$sampler$gen_multi_keypress_handler(key_fn_map){
+return (function (p1__74519_SHARP_){
+return cljs.core.doall.call(null,cljs.core.map.call(null,(function (v){
+if(cljs.core._EQ_.call(null,cljs.core.first.call(null,v),p1__74519_SHARP_.charCode)){
+return cljs.core.second.call(null,v).call(null);
 } else {
 return null;
 }
+}),key_fn_map));
 });
-voice.sampler.turn_on_keypress_handler = (function voice$sampler$turn_on_keypress_handler(){
-return jayq.core.on.call(null,jayq.core.$.call(null,new cljs.core.Keyword(null,"html","html",-998796897)),new cljs.core.Keyword(null,"keypress","keypress",1625181642),voice.sampler.keypress_handler);
+});
+/**
+ * Takes an argument of a map that contains the charCode & functions to execute when keys are pressed
+ */
+voice.sampler.turn_on_keypress_handler = (function voice$sampler$turn_on_keypress_handler(key_fn_map){
+return jayq.core.on.call(null,jayq.core.$.call(null,new cljs.core.Keyword(null,"html","html",-998796897)),new cljs.core.Keyword(null,"keypress","keypress",1625181642),voice.sampler.gen_multi_keypress_handler.call(null,key_fn_map));
 });
 voice.sampler.turn_off_keypress_handler = (function voice$sampler$turn_off_keypress_handler(){
 return jayq.core.off.call(null,jayq.core.$.call(null,new cljs.core.Keyword(null,"html","html",-998796897)),new cljs.core.Keyword(null,"keypress","keypress",1625181642));
 });
-voice.sampler.reset_keypress_handler = (function voice$sampler$reset_keypress_handler(){
+voice.sampler.reset_keypress_handler = (function voice$sampler$reset_keypress_handler(key_fn_map){
 var script = cljs.core.deref.call(null,voice.sampler.sampler_state).call(null,new cljs.core.Keyword(null,"script","script",-1304443801));
 voice.sampler.turn_off_keypress_handler.call(null);
 
-voice.sampler.turn_on_keypress_handler.call(null);
-
-voice.sampler.change_script_box.call(null,cljs.core.first.call(null,script));
-
-return cljs.core.swap_BANG_.call(null,voice.sampler.sampler_state,cljs.core.assoc,new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398),(0));
+return voice.sampler.turn_on_keypress_handler.call(null,key_fn_map);
 });
 voice.sampler.begin_sampling = (function voice$sampler$begin_sampling(){
 var s = cljs.core.deref.call(null,voice.sampler.sampler_state).call(null,new cljs.core.Keyword(null,"script","script",-1304443801));
-voice.sampler.reset_keypress_handler.call(null);
+voice.sampler.change_script_box.call(null,cljs.core.first.call(null,s));
+
+cljs.core.swap_BANG_.call(null,voice.sampler.sampler_state,cljs.core.assoc,new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398),(0));
+
+voice.sampler.reset_keypress_handler.call(null,new cljs.core.PersistentArrayMap(null, 1, [(32),voice.sampler.handle_spacebar], null));
 
 voice.sampler.update_total_samples.call(null,cljs.core.count.call(null,s));
 
@@ -78,16 +85,10 @@ cljs.core.swap_BANG_.call(null,voice.sampler.sampler_state,cljs.core.assoc,new c
 
 voice.sampler.change_script_box.call(null,"Press Spacebar to Begin!");
 
-return jayq.core.on.call(null,jayq.core.$.call(null,new cljs.core.Keyword(null,"html","html",-998796897)),new cljs.core.Keyword(null,"keypress","keypress",1625181642),(function (p1__9076_SHARP_){
-if(cljs.core._EQ_.call(null,(32),p1__9076_SHARP_.charCode)){
-return voice.sampler.begin_sampling.call(null);
-} else {
-return null;
-}
-}));
+return voice.sampler.turn_on_keypress_handler.call(null,new cljs.core.PersistentArrayMap(null, 1, [(32),voice.sampler.begin_sampling], null));
 }));
 });
 voice.sampler.initfn.call(null);
-consol.log("js loaded");
+console.log("cljs loaded");
 
-//# sourceMappingURL=sampler.js.map
+//# sourceMappingURL=sampler.js.map?rel=1482444757541

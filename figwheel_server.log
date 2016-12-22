@@ -359,3 +359,53 @@ notifying browser that file changed:  out/voice/sampler.js
 [0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
 [32mSuccessfully compiled "resources/public/js/main.js" in 0.388 seconds.[0m
 notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs"]...[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:72  column:5  ----[0m
+
+  [1mWrong number of args (1) passed to jayq.core/on[0m
+
+  [36m68[0m  [36m         keypress-handler))[0m
+  [36m69[0m  [36m[0m
+  [36m70[0m  [36m(defn keypress [key-fn-map][0m
+  [36m71[0m  [36m  (map[0m
+  [33m72[0m  [1m   #(jq/on[0m
+  [0m  [0m  [33m    ^--- Wrong number of args (1) passed to jayq.core/on[0m
+  [36m73[0m  [36m     ($ :html[0m
+  [36m74[0m  [36m        (first %)[0m
+  [36m75[0m  [36m        (second %)))[0m
+  [36m76[0m  [36m   key-fn-map))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:73  column:6  ----[0m
+
+  [1mWrong number of args (3) passed to jayq.core/$[0m
+
+  [36m70[0m  [36m(defn keypress [key-fn-map][0m
+  [36m71[0m  [36m  (map[0m
+  [36m72[0m  [36m   #(jq/on[0m
+  [33m73[0m  [1m     ($ :html[0m
+  [0m  [0m  [33m     ^--- Wrong number of args (3) passed to jayq.core/$[0m
+  [36m74[0m  [36m        (first %)[0m
+  [36m75[0m  [36m        (second %)))[0m
+  [36m76[0m  [36m   key-fn-map))[0m
+  [36m77[0m  [36m[0m
+  [36m78[0m  [36m(defn turn-off-keypress-handler [][0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 10.971 seconds.[0m
+notifying browser that file changed:  resources/public/js/out/goog/deps.js
+notifying browser that file changed:  resources/public/js/out/cljs_deps.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.44 seconds.[0m
+notifying browser that file changed:  resources/public/js/out/goog/deps.js
+notifying browser that file changed:  resources/public/js/out/cljs_deps.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.408 seconds.[0m
+notifying browser that file changed:  resources/public/js/out/goog/deps.js
+notifying browser that file changed:  resources/public/js/out/cljs_deps.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.417 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
