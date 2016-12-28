@@ -14,6 +14,18 @@
 (def goog
   [:script {:src "js/out/goog/base.js"}])
 
+(def recorder
+  [:script {:src "js/libs/recorder.js"}])
+
+
+
+
+
+
+
+
+
+
 
 
 
