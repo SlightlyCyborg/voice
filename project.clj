@@ -48,7 +48,7 @@
               :builds [{
                         :source-paths ["src/cljs/"]
                         :id "dev"
-                        :figwheel {:websocket-host "192.168.254.33"}
+                        :figwheel {:websocket-host "localhost"}
                         :compiler {
                                    :main "voice.sampler"
                                    :asset-path "js/out"

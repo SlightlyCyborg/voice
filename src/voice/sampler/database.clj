@@ -4,9 +4,11 @@
 
 (def db-pass (clojure.string/trim (slurp "secrets/dbpass.txt")))
 
+(def db-user (clojure.string/trim (slurp "secrets/dbuser.txt")))
+
 (defdb db
   (postgres {:db "voice"
-             :user "slightlycyborg"
+             :user db-user
              :password db-pass
              :host "127.0.0.1"
              :port 5432}))

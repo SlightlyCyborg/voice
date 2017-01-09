@@ -37,4 +37,4 @@ goog.addDependency("../ajax/xhrio.js", ['ajax.xhrio'], ['goog.net.XhrManager', '
 goog.addDependency("../ajax/core.js", ['ajax.core'], ['goog.net.XhrIo', 'ajax.xml_http_request', 'goog.json', 'goog.Uri.QueryData', 'cljs.core', 'cognitect.transit', 'goog.structs', 'goog.json.Serializer', 'ajax.protocols', 'clojure.string', 'ajax.xhrio']);
 goog.addDependency("../jayq/core.js", ['jayq.core'], ['cljs.core', 'clojure.string', 'cljs.reader']);
 goog.addDependency("../voice/sampler.js", ['voice.sampler'], ['ajax.core', 'cljs.core', 'jayq.core']);
-goog.addDependency("../BAB49CB.js", ['figwheel.connect.dev'], ['cljs.core', 'voice.sampler', 'figwheel.client', 'figwheel.client.utils']);
+goog.addDependency("../A86B15F.js", ['figwheel.connect.dev'], ['cljs.core', 'voice.sampler', 'figwheel.client', 'figwheel.client.utils']);

@@ -41,6 +41,9 @@
    :headers {"Content-Type" "text/html"}
    :body (sampler-page/render req {:points-complete 0 :points-total 20})})
 
+(defn sampler-post [{session :session params :params}]
+  (print (type (params :blob))))
+
 (defn login-get [req]
   {:status 200
    :headers {"Content-Type" "text/html"}
@@ -95,6 +98,7 @@
 (defroutes all-routes
   (GET "/" [] (authenticate dashboard))
   (GET "/sampler" [] (authenticate sampler))
+  (POST "/sampler" [] (authenticate sampler-post))
   (GET "/login" [] login-get)
   (POST "/login" [] login-post)
   (GET "/logout" [] logout)
