@@ -4,6 +4,7 @@ goog.require('cljs.core');
 goog.require('jayq.core');
 goog.require('ajax.core');
 voice.sampler.script = null;
+voice.sampler.script_id = (1);
 voice.sampler.sampler_state = cljs.core.atom.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398),(0),new cljs.core.Keyword(null,"script","script",-1304443801),null,new cljs.core.Keyword(null,"audio-blobs","audio-blobs",-703458996),cljs.core.PersistentArrayMap.EMPTY], null));
 voice.sampler.util_sleep = (function voice$sampler$util_sleep(ms,resolve){
 return setTimeout(resolve,ms);
@@ -32,9 +33,9 @@ jayq.core.attr.call(null,progress_bar,new cljs.core.Keyword(null,"aria-valuenow"
 return jayq.core.attr.call(null,progress_bar,new cljs.core.Keyword(null,"style","style",-496642736),[cljs.core.str("width:"),cljs.core.str(((100) * (cur / cur_denom))),cljs.core.str("%;")].join(''));
 });
 voice.sampler.gen_multi_keypress_handler = (function voice$sampler$gen_multi_keypress_handler(key_fn_map){
-return (function (p1__53287_SHARP_){
+return (function (p1__52672_SHARP_){
 return cljs.core.doall.call(null,cljs.core.map.call(null,(function (v){
-if(cljs.core._EQ_.call(null,cljs.core.first.call(null,v),p1__53287_SHARP_.charCode)){
+if(cljs.core._EQ_.call(null,cljs.core.first.call(null,v),p1__52672_SHARP_.charCode)){
 return cljs.core.second.call(null,v).call(null);
 } else {
 return null;
@@ -96,11 +97,15 @@ return cljs.core.print.call(null,err);
 });})(audio_context))
 );
 });
-voice.sampler.send_audio_blob_to_server = (function voice$sampler$send_audio_blob_to_server(blob){
-var data = (new FormData());
-data.append("blob",blob);
+voice.sampler.send_audio_blob_to_server = (function voice$sampler$send_audio_blob_to_server(blob,index){
+cljs.core.println.call(null,"sending data to server");
 
-data.append("sample-id",cljs.core.deref.call(null,voice.sampler.sampler_state).call(null,new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398)));
+var data = (new FormData());
+data.append("blob-data",blob);
+
+data.append("blob-index",index);
+
+data.append("sample-id",voice.sampler.script_id);
 
 return jayq.core.ajax.call(null,new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"url","url",276297046),"/sampler",new cljs.core.Keyword(null,"data","data",-232669377),data,new cljs.core.Keyword(null,"contentType","contentType",-1462509576),false,new cljs.core.Keyword(null,"processData","processData",-761924375),false,new cljs.core.Keyword(null,"method","method",55703592),"POST",new cljs.core.Keyword(null,"error","error",-978969032),((function (data){
 return (function (){
@@ -120,8 +125,8 @@ a.load();
 return a.play();
 });
 voice.sampler.handle_audio_blob = (function voice$sampler$handle_audio_blob(blob){
-var cur_index_53288 = cljs.core.deref.call(null,voice.sampler.sampler_state).call(null,new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398));
-cljs.core.swap_BANG_.call(null,voice.sampler.sampler_state,cljs.core.assoc_in,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"audio-blobs","audio-blobs",-703458996),cur_index_53288], null),blob);
+var cur_index_52673 = cljs.core.deref.call(null,voice.sampler.sampler_state).call(null,new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398));
+cljs.core.swap_BANG_.call(null,voice.sampler.sampler_state,cljs.core.assoc_in,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"audio-blobs","audio-blobs",-703458996),cur_index_52673], null),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"blob","blob",1636965233),blob,new cljs.core.Keyword(null,"status","status",-1997798413),new cljs.core.Keyword(null,"not-saved","not-saved",-1272042047)], null));
 
 return voice.sampler.activate_button.call(null,new cljs.core.Keyword(null,"#play-button","#play-button",-1646784312));
 });
@@ -129,33 +134,44 @@ voice.sampler.get_blob_promise = (function voice$sampler$get_blob_promise(record
 cljs.core.print.call(null,"getting promise");
 
 return (new Promise((function (resolve,reject){
-return recorder.exportWAV((function (p1__53289_SHARP_){
-return resolve.call(null,p1__53289_SHARP_);
+return recorder.exportWAV((function (p1__52674_SHARP_){
+return resolve.call(null,p1__52674_SHARP_);
 }));
 })));
 });
 voice.sampler.handle_play = (function voice$sampler$handle_play(ev){
 var cur_index = cljs.core.deref.call(null,voice.sampler.sampler_state).call(null,new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398));
 if(cljs.core.truth_(jayq.core.has_class.call(null,jayq.core.$.call(null,new cljs.core.Keyword(null,"#play-button","#play-button",-1646784312)),new cljs.core.Keyword(null,"activated","activated",217445300)))){
-return voice.sampler.play_audio_blob.call(null,cljs.core.get_in.call(null,cljs.core.deref.call(null,voice.sampler.sampler_state),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"audio-blobs","audio-blobs",-703458996),cur_index], null)));
+return voice.sampler.play_audio_blob.call(null,cljs.core.get_in.call(null,cljs.core.deref.call(null,voice.sampler.sampler_state),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"audio-blobs","audio-blobs",-703458996),cur_index,new cljs.core.Keyword(null,"blob","blob",1636965233)], null)));
+} else {
+return null;
+}
+});
+voice.sampler.handle_movement = (function voice$sampler$handle_movement(){
+var cur_index = cljs.core.deref.call(null,voice.sampler.sampler_state).call(null,new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398));
+var cur_blob = cljs.core.get_in.call(null,cljs.core.deref.call(null,voice.sampler.sampler_state),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"audio-blobs","audio-blobs",-703458996),cur_index,new cljs.core.Keyword(null,"blob","blob",1636965233)], null));
+if(!((cur_blob == null))){
+return voice.sampler.send_audio_blob_to_server.call(null,cur_blob,cur_index);
 } else {
 return null;
 }
 });
 voice.sampler.handle_forward = (function voice$sampler$handle_forward(ev){
-var next_index_53290 = ((1) + cljs.core.deref.call(null,voice.sampler.sampler_state).call(null,new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398)));
-var script_53291 = cljs.core.deref.call(null,voice.sampler.sampler_state).call(null,new cljs.core.Keyword(null,"script","script",-1304443801));
-var next_audio_blob_53292 = cljs.core.get_in.call(null,cljs.core.deref.call(null,voice.sampler.sampler_state),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"audio-blobs","audio-blobs",-703458996),next_index_53290], null));
-if((next_index_53290 < cljs.core.count.call(null,script_53291))){
-voice.sampler.change_script_box.call(null,cljs.core.nth.call(null,script_53291,next_index_53290));
+var next_index_52675 = ((1) + cljs.core.deref.call(null,voice.sampler.sampler_state).call(null,new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398)));
+var script_52676 = cljs.core.deref.call(null,voice.sampler.sampler_state).call(null,new cljs.core.Keyword(null,"script","script",-1304443801));
+var next_audio_blob_52677 = cljs.core.get_in.call(null,cljs.core.deref.call(null,voice.sampler.sampler_state),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"audio-blobs","audio-blobs",-703458996),next_index_52675,new cljs.core.Keyword(null,"blob","blob",1636965233)], null));
+voice.sampler.handle_movement.call(null);
 
-voice.sampler.update_cur_samples.call(null,next_index_53290);
+if((next_index_52675 < cljs.core.count.call(null,script_52676))){
+voice.sampler.change_script_box.call(null,cljs.core.nth.call(null,script_52676,next_index_52675));
 
-cljs.core.swap_BANG_.call(null,voice.sampler.sampler_state,cljs.core.assoc,new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398),next_index_53290);
+voice.sampler.update_cur_samples.call(null,next_index_52675);
+
+cljs.core.swap_BANG_.call(null,voice.sampler.sampler_state,cljs.core.assoc,new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398),next_index_52675);
 } else {
 }
 
-if(!((next_audio_blob_53292 == null))){
+if(!((next_audio_blob_52677 == null))){
 voice.sampler.activate_button.call(null,new cljs.core.Keyword(null,"#play-button","#play-button",-1646784312));
 } else {
 voice.sampler.deactivate_button.call(null,new cljs.core.Keyword(null,"#play-button","#play-button",-1646784312));
@@ -166,19 +182,21 @@ voice.sampler.activate_button.call(null,new cljs.core.Keyword(null,"#record-butt
 return voice.sampler.activate_button.call(null,new cljs.core.Keyword(null,"#backward-button","#backward-button",-1270284767));
 });
 voice.sampler.handle_backward = (function voice$sampler$handle_backward(ev){
-var previous_index_53293 = (cljs.core.deref.call(null,voice.sampler.sampler_state).call(null,new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398)) - (1));
-var script_53294 = cljs.core.deref.call(null,voice.sampler.sampler_state).call(null,new cljs.core.Keyword(null,"script","script",-1304443801));
-var prev_audio_blob_53295 = cljs.core.get_in.call(null,cljs.core.deref.call(null,voice.sampler.sampler_state),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"audio-blobs","audio-blobs",-703458996),previous_index_53293], null));
-if((previous_index_53293 >= (0))){
-voice.sampler.change_script_box.call(null,cljs.core.nth.call(null,script_53294,previous_index_53293));
+var previous_index_52678 = (cljs.core.deref.call(null,voice.sampler.sampler_state).call(null,new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398)) - (1));
+var script_52679 = cljs.core.deref.call(null,voice.sampler.sampler_state).call(null,new cljs.core.Keyword(null,"script","script",-1304443801));
+var prev_audio_blob_52680 = cljs.core.get_in.call(null,cljs.core.deref.call(null,voice.sampler.sampler_state),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"audio-blobs","audio-blobs",-703458996),previous_index_52678,new cljs.core.Keyword(null,"blob","blob",1636965233)], null));
+voice.sampler.handle_movement.call(null);
 
-voice.sampler.update_cur_samples.call(null,previous_index_53293);
+if((previous_index_52678 >= (0))){
+voice.sampler.change_script_box.call(null,cljs.core.nth.call(null,script_52679,previous_index_52678));
 
-cljs.core.swap_BANG_.call(null,voice.sampler.sampler_state,cljs.core.assoc,new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398),previous_index_53293);
+voice.sampler.update_cur_samples.call(null,previous_index_52678);
+
+cljs.core.swap_BANG_.call(null,voice.sampler.sampler_state,cljs.core.assoc,new cljs.core.Keyword(null,"cur-script-index","cur-script-index",434373398),previous_index_52678);
 } else {
 }
 
-if(!((prev_audio_blob_53295 == null))){
+if(!((prev_audio_blob_52680 == null))){
 voice.sampler.activate_button.call(null,new cljs.core.Keyword(null,"#play-button","#play-button",-1646784312));
 } else {
 voice.sampler.deactivate_button.call(null,new cljs.core.Keyword(null,"#play-button","#play-button",-1646784312));
@@ -209,8 +227,8 @@ if(!((recorder == null))){
 recorder.stop();
 
 return voice.sampler.get_blob_promise.call(null,recorder).then(((function (recorder){
-return (function (p1__53296_SHARP_){
-return voice.sampler.handle_audio_blob.call(null,p1__53296_SHARP_);
+return (function (p1__52681_SHARP_){
+return voice.sampler.handle_audio_blob.call(null,p1__52681_SHARP_);
 });})(recorder))
 );
 } else {
@@ -248,7 +266,7 @@ voice.sampler.update_total_samples.call(null,cljs.core.count.call(null,s));
 return voice.sampler.update_cur_samples.call(null,(0));
 });
 voice.sampler.initfn = (function voice$sampler$initfn(){
-return jayq.core.done.call(null,voice.sampler.request_script.call(null,(1)),(function (script){
+return jayq.core.done.call(null,voice.sampler.request_script.call(null,voice.sampler.script_id),(function (script){
 cljs.core.swap_BANG_.call(null,voice.sampler.sampler_state,cljs.core.assoc,new cljs.core.Keyword(null,"script","script",-1304443801),script);
 
 voice.sampler.change_script_box.call(null,"Press forward button to begin!");
@@ -262,4 +280,4 @@ return jayq.core.remove_class.call(null,jayq.core.$.call(null,new cljs.core.Keyw
 });
 voice.sampler.initfn.call(null);
 
-//# sourceMappingURL=sampler.js.map?rel=1483931329725
+//# sourceMappingURL=sampler.js.map?rel=1484020930108

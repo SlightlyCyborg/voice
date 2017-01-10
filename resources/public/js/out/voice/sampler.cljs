@@ -4,6 +4,8 @@
             [ajax.core :refer [GET POST]]))
 
 (def script nil)
+(def script-id 1)
+
 
 (def sampler-state (atom {:cur-script-index 0 :script nil :audio-blobs {}}))
 
@@ -122,11 +124,12 @@
         (fn [rejected] (print "rejected")))
        (.catch (fn [err] (print err))))))
 
-(defn send-audio-blob-to-server [blob]
-
+(defn send-audio-blob-to-server [blob index]
+  (println "sending data to server")
   (let [data (js/FormData.)]
-    (.append data "blob" blob)
-    (.append data "sample-id" (@sampler-state :cur-script-index))
+    (.append data "blob-data" blob)
+    (.append data "blob-index" index)
+    (.append data "sample-id" script-id)
     (ajax 
      {:url "/sampler"
       :data data
@@ -148,7 +151,7 @@
 
 (defn handle-audio-blob [blob]
   (let [cur-index (@sampler-state :cur-script-index)]
-   (swap! sampler-state assoc-in [:audio-blobs cur-index] blob))
+   (swap! sampler-state assoc-in [:audio-blobs cur-index] {:blob blob :status :not-saved}))
   (activate-button :#play-button))
 
 
@@ -165,26 +168,35 @@
   (let [cur-index (@sampler-state :cur-script-index)]
    (if (jq/has-class ($ :#play-button) :activated)
      (do
-       (play-audio-blob (get-in @sampler-state [:audio-blobs cur-index]))))))
+       (play-audio-blob (get-in @sampler-state [:audio-blobs cur-index :blob]))))))
+
+(defn handle-movement []
+  (let [cur-index (@sampler-state :cur-script-index)
+        cur-blob (get-in @sampler-state [:audio-blobs cur-index :blob])]
+    (if (not (nil? cur-blob))
+      (do
+        (send-audio-blob-to-server cur-blob cur-index)))))
 
 (defn handle-forward [ev]
   (let [next-index (+ 1 (@sampler-state :cur-script-index))
         script (@sampler-state :script)
-        next-audio-blob (get-in @sampler-state [:audio-blobs next-index])]
-   (if (< next-index (count script))
-     (do (change-script-box (nth script next-index))
-         (update-cur-samples next-index)
-         (swap! sampler-state assoc :cur-script-index next-index)))
-   (if (not (nil? next-audio-blob))
-     (activate-button :#play-button)
-     (deactivate-button :#play-button)))
+        next-audio-blob (get-in @sampler-state [:audio-blobs next-index :blob])]
+    (handle-movement)
+    (if (< next-index (count script))
+      (do (change-script-box (nth script next-index))
+          (update-cur-samples next-index)
+          (swap! sampler-state assoc :cur-script-index next-index)))
+    (if (not (nil? next-audio-blob))
+      (activate-button :#play-button)
+      (deactivate-button :#play-button)))
   (activate-button :#record-button)
   (activate-button :#backward-button))
 
 (defn handle-backward [ev]
   (let [previous-index (- (@sampler-state :cur-script-index) 1)
         script (@sampler-state :script)
-        prev-audio-blob (get-in @sampler-state [:audio-blobs previous-index])]
+        prev-audio-blob (get-in @sampler-state [:audio-blobs previous-index :blob])]
+    (handle-movement)
     (if (>= previous-index 0)
       (do (change-script-box (nth script previous-index))
           (update-cur-samples previous-index)
@@ -243,7 +255,7 @@
 
 (defn initfn []
   (jq/done
-   (request-script 1)
+   (request-script script-id)
 
    ;; do this fn once script has been recieved
    (fn [script]

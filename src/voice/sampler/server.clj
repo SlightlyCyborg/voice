@@ -18,7 +18,8 @@
             [voice.sampler.templates.register :as register-page]
             [voice.sampler.templates.test-model :as test-model-page]
             [voice.sampler.script :as script]
-            [voice.sampler.database :as db]))
+            [voice.sampler.database :as db])
+  (:import java.nio.file.Files))
 
 (defn auth-failed [req]
   {:status 401}
@@ -26,7 +27,7 @@
 
 (defn authenticate [handler]
   (fn [req]
-    (if (-> req (get :session) (get :user-id nil))
+    (if (-> req (get :session) (get :user nil))
       (handler req)
       (auth-failed req))))
 
@@ -42,7 +43,10 @@
    :body (sampler-page/render req {:points-complete 0 :points-total 20})})
 
 (defn sampler-post [{session :session params :params}]
-  (print (type (params :blob))))
+  session
+  ;(db/save-blob (get-in params [:blob-data :tempfile]) (session :user-id) (params :sample-id) (params :blob-index))
+
+  {:satus 200})
 
 (defn login-get [req]
   {:status 200
@@ -51,9 +55,12 @@
    :session {:user-id nil}})
 
 (defn login-post [{session :session params :params}]
-  (if-let [user-id (db/authenticated? (params :username) (params :password))]
-    (-> (res-util/redirect "/")
-        (assoc :session (assoc session :user-id user-id)))))
+  (let [user (db/authenticated? (params :username) (params :password))]
+    (if (> (count user) 0)
+      (do
+        (-> (res-util/redirect "/")
+            (assoc :session (assoc session :user user))))
+      (auth-failed nil))))
 
 (defn logout [req]
   (->

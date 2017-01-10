@@ -1,10 +1,12 @@
 (ns voice.sampler.database
+  ;(:require [aws.sdk.s3 :as s3])
   (:use korma.db
         korma.core))
 
 (def db-pass (clojure.string/trim (slurp "secrets/dbpass.txt")))
-
 (def db-user (clojure.string/trim (slurp "secrets/dbuser.txt")))
+
+;;(s3/put-object s3-creds s3-bucket "123key" "foobar")
 
 (defdb db
   (postgres {:db "voice"
@@ -40,7 +42,32 @@
 (defn authenticated? [username password]
   (select users
           (where {:username username
-                   :hashed_pass (salt-n-hash password)})))
+                  :hashed_pass (salt-n-hash password)})))
+
+
+
+;;;; S3 STUFF
+
+(def s3-creds {:access-key (clojure.string/trim (slurp "secrets/s3-access-key.txt"))
+               :secret-key (clojure.string/trim (slurp "secrets/s3-secret-key.txt"))})
+
+(def s3-bucket "eden-cybernetics-voice")
+
+
+(defn gen-blob-key [username sample-id blob-index]
+  (str username "-" sample-id "-" blob-index))
+
+(defn save-blob [blob username sample-id blob-index]
+  (let [key (gen-blob-key username sample-id blob-index)]
+    ;(s3/put-object s3-creds s3-bucket key blob)
+    ))
+
+
+(defn get-blob [username sample-id blob-index]
+  ;(s3/get-object s3-creds s3-bucket (gen-blob-key username sample-id blob-index))
+  )
+
+
 
 
 

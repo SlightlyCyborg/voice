@@ -36,6 +36,7 @@
                  ;for the database
                  [korma "0.4.3"]
                  [org.postgresql/postgresql "9.4.1212"]
+                 [clj-aws-s3 "0.3.10"]
 
 
                  [org.clojure/data.json "0.2.6"]]

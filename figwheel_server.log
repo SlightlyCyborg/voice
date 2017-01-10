@@ -906,3 +906,250 @@ notifying browser that file changed:  out/voice/sampler.js
 [0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
 [32mSuccessfully compiled "resources/public/js/main.js" in 0.621 seconds.[0m
 notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 2.587 seconds.[0m
+notifying browser that file changed:  resources/public/js/out/goog/deps.js
+notifying browser that file changed:  resources/public/js/out/cljs_deps.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 1.391 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:174  column:7  ----[0m
+
+  [1mWrong number of args (1) passed to voice.sampler/send-audio-blob-to-server[0m
+
+  [36m171[0m  [36m(defn handle-movement [blob index][0m
+  [36m172[0m  [36m  (if (not (nil? blob))[0m
+  [36m173[0m  [36m    (do[0m
+  [33m174[0m  [1m      (send-audio-blob-to-server blob))))[0m
+  [0m   [0m  [33m      ^--- Wrong number of args (1) passed to voice.sampler/send-audio-blob-to-server[0m
+  [36m175[0m  [36m[0m
+  [36m176[0m  [36m(defn handle-forward [ev][0m
+  [36m177[0m  [36m  (let [next-index (+ 1 (@sampler-state :cur-script-index))[0m
+  [36m178[0m  [36m        script (@sampler-state :script)[0m
+  [36m179[0m  [36m        next-audio-blob (get-in @sampler-state [:audio-blobs next-index :blob])][0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:203  column:22  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/next-audio-blob[0m
+
+  [36m200[0m  [36m    (if (not (nil? prev-audio-blob))[0m
+  [36m201[0m  [36m      (activate-button :#play-button)[0m
+  [36m202[0m  [36m      (deactivate-button :#play-button))[0m
+  [33m203[0m  [1m    (handle-movement next-audio-blob next-index))[0m
+  [0m   [0m  [33m                     ^--- Use of undeclared Var voice.sampler/next-audio-blob[0m
+  [36m204[0m  [36m  (activate-button :#record-button))[0m
+  [36m205[0m  [36m[0m
+  [36m206[0m  [36m(defn handle-record [ev][0m
+  [36m207[0m  [36m  (-> ($ :#record-button)[0m
+  [36m208[0m  [36m      (jq/attr :src "imgs/mic-recording.png"))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:203  column:38  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/next-index[0m
+
+  [36m200[0m  [36m    (if (not (nil? prev-audio-blob))[0m
+  [36m201[0m  [36m      (activate-button :#play-button)[0m
+  [36m202[0m  [36m      (deactivate-button :#play-button))[0m
+  [33m203[0m  [1m    (handle-movement next-audio-blob next-index))[0m
+  [0m   [0m  [33m                                     ^--- Use of undeclared Var voice.sampler/next-index[0m
+  [36m204[0m  [36m  (activate-button :#record-button))[0m
+  [36m205[0m  [36m[0m
+  [36m206[0m  [36m(defn handle-record [ev][0m
+  [36m207[0m  [36m  (-> ($ :#record-button)[0m
+  [36m208[0m  [36m      (jq/attr :src "imgs/mic-recording.png"))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 1.953 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:203  column:22  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/next-audio-blob[0m
+
+  [36m200[0m  [36m    (if (not (nil? prev-audio-blob))[0m
+  [36m201[0m  [36m      (activate-button :#play-button)[0m
+  [36m202[0m  [36m      (deactivate-button :#play-button))[0m
+  [33m203[0m  [1m    (handle-movement next-audio-blob next-index))[0m
+  [0m   [0m  [33m                     ^--- Use of undeclared Var voice.sampler/next-audio-blob[0m
+  [36m204[0m  [36m  (activate-button :#record-button))[0m
+  [36m205[0m  [36m[0m
+  [36m206[0m  [36m(defn handle-record [ev][0m
+  [36m207[0m  [36m  (-> ($ :#record-button)[0m
+  [36m208[0m  [36m      (jq/attr :src "imgs/mic-recording.png"))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:203  column:38  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/next-index[0m
+
+  [36m200[0m  [36m    (if (not (nil? prev-audio-blob))[0m
+  [36m201[0m  [36m      (activate-button :#play-button)[0m
+  [36m202[0m  [36m      (deactivate-button :#play-button))[0m
+  [33m203[0m  [1m    (handle-movement next-audio-blob next-index))[0m
+  [0m   [0m  [33m                                     ^--- Use of undeclared Var voice.sampler/next-index[0m
+  [36m204[0m  [36m  (activate-button :#record-button))[0m
+  [36m205[0m  [36m[0m
+  [36m206[0m  [36m(defn handle-record [ev][0m
+  [36m207[0m  [36m  (-> ($ :#record-button)[0m
+  [36m208[0m  [36m      (jq/attr :src "imgs/mic-recording.png"))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 1.03 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:203  column:38  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/next-index[0m
+
+  [36m200[0m  [36m    (if (not (nil? prev-audio-blob))[0m
+  [36m201[0m  [36m      (activate-button :#play-button)[0m
+  [36m202[0m  [36m      (deactivate-button :#play-button))[0m
+  [33m203[0m  [1m    (handle-movement prev-audio-blob next-index))[0m
+  [0m   [0m  [33m                                     ^--- Use of undeclared Var voice.sampler/next-index[0m
+  [36m204[0m  [36m  (activate-button :#record-button))[0m
+  [36m205[0m  [36m[0m
+  [36m206[0m  [36m(defn handle-record [ev][0m
+  [36m207[0m  [36m  (-> ($ :#record-button)[0m
+  [36m208[0m  [36m      (jq/attr :src "imgs/mic-recording.png"))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 1.123 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.706 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:174  column:19  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/blob[0m
+
+  [36m171[0m  [36m(defn handle-movement [][0m
+  [36m172[0m  [36m  (let [cur-index (@sampler-state :cur-script-index)[0m
+  [36m173[0m  [36m        cur-blob (get-in @sampler-state [:audio-blobs cur-index :blob])][0m
+  [33m174[0m  [1m   (if (not (nil? blob))[0m
+  [0m   [0m  [33m                  ^--- Use of undeclared Var voice.sampler/blob[0m
+  [36m175[0m  [36m     (do[0m
+  [36m176[0m  [36m       (send-audio-blob-to-server cur-blob cur-index)))))[0m
+  [36m177[0m  [36m[0m
+  [36m178[0m  [36m(defn handle-forward [ev][0m
+  [36m179[0m  [36m  (let [next-index (+ 1 (@sampler-state :cur-script-index))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:189  column:4  ----[0m
+
+  [1mWrong number of args (2) passed to voice.sampler/handle-movement[0m
+
+  [36m185[0m  [36m         (swap! sampler-state assoc :cur-script-index next-index)))[0m
+  [36m186[0m  [36m   (if (not (nil? next-audio-blob))[0m
+  [36m187[0m  [36m     (activate-button :#play-button)[0m
+  [36m188[0m  [36m     (deactivate-button :#play-button))[0m
+  [33m189[0m  [1m   (handle-movement next-audio-blob next-index))[0m
+  [0m   [0m  [33m   ^--- Wrong number of args (2) passed to voice.sampler/handle-movement[0m
+  [36m190[0m  [36m  (activate-button :#record-button)[0m
+  [36m191[0m  [36m  (activate-button :#backward-button))[0m
+  [36m192[0m  [36m[0m
+  [36m193[0m  [36m(defn handle-backward [ev][0m
+  [36m194[0m  [36m  (let [previous-index (- (@sampler-state :cur-script-index) 1)[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:205  column:5  ----[0m
+
+  [1mWrong number of args (2) passed to voice.sampler/handle-movement[0m
+
+  [36m202[0m  [36m    (if (not (nil? prev-audio-blob))[0m
+  [36m203[0m  [36m      (activate-button :#play-button)[0m
+  [36m204[0m  [36m      (deactivate-button :#play-button))[0m
+  [33m205[0m  [1m    (handle-movement prev-audio-blob previous-index))[0m
+  [0m   [0m  [33m    ^--- Wrong number of args (2) passed to voice.sampler/handle-movement[0m
+  [36m206[0m  [36m  (activate-button :#record-button))[0m
+  [36m207[0m  [36m[0m
+  [36m208[0m  [36m(defn handle-record [ev][0m
+  [36m209[0m  [36m  (-> ($ :#record-button)[0m
+  [36m210[0m  [36m      (jq/attr :src "imgs/mic-recording.png"))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.846 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:174  column:19  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/blob[0m
+
+  [36m171[0m  [36m(defn handle-movement [][0m
+  [36m172[0m  [36m  (let [cur-index (@sampler-state :cur-script-index)[0m
+  [36m173[0m  [36m        cur-blob (get-in @sampler-state [:audio-blobs cur-index :blob])][0m
+  [33m174[0m  [1m   (if (not (nil? blob))[0m
+  [0m   [0m  [33m                  ^--- Use of undeclared Var voice.sampler/blob[0m
+  [36m175[0m  [36m     (do[0m
+  [36m176[0m  [36m       (send-audio-blob-to-server cur-blob cur-index)))))[0m
+  [36m177[0m  [36m[0m
+  [36m178[0m  [36m(defn handle-forward [ev][0m
+  [36m179[0m  [36m  (let [next-index (+ 1 (@sampler-state :cur-script-index))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:189  column:4  ----[0m
+
+  [1mWrong number of args (2) passed to voice.sampler/handle-movement[0m
+
+  [36m185[0m  [36m         (swap! sampler-state assoc :cur-script-index next-index)))[0m
+  [36m186[0m  [36m   (if (not (nil? next-audio-blob))[0m
+  [36m187[0m  [36m     (activate-button :#play-button)[0m
+  [36m188[0m  [36m     (deactivate-button :#play-button))[0m
+  [33m189[0m  [1m   (handle-movement next-audio-blob next-index))[0m
+  [0m   [0m  [33m   ^--- Wrong number of args (2) passed to voice.sampler/handle-movement[0m
+  [36m190[0m  [36m  (activate-button :#record-button)[0m
+  [36m191[0m  [36m  (activate-button :#backward-button))[0m
+  [36m192[0m  [36m[0m
+  [36m193[0m  [36m(defn handle-backward [ev][0m
+  [36m194[0m  [36m  (let [previous-index (- (@sampler-state :cur-script-index) 1)[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.637 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[36m----  Compiler Warning on   src/cljs/voice/sampler.cljs   line:174  column:19  ----[0m
+
+  [1mUse of undeclared Var voice.sampler/blob[0m
+
+  [36m171[0m  [36m(defn handle-movement [][0m
+  [36m172[0m  [36m  (let [cur-index (@sampler-state :cur-script-index)[0m
+  [36m173[0m  [36m        cur-blob (get-in @sampler-state [:audio-blobs cur-index :blob])][0m
+  [33m174[0m  [1m   (if (not (nil? blob))[0m
+  [0m   [0m  [33m                  ^--- Use of undeclared Var voice.sampler/blob[0m
+  [36m175[0m  [36m     (do[0m
+  [36m176[0m  [36m       (send-audio-blob-to-server cur-blob cur-index)))))[0m
+  [36m177[0m  [36m[0m
+  [36m178[0m  [36m(defn handle-forward [ev][0m
+  [36m179[0m  [36m  (let [next-index (+ 1 (@sampler-state :cur-script-index))[0m
+
+[36m----  Compiler Warning : Please see src/cljs/voice/sampler.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.739 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.599 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.568 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.81 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 1.362 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 1.821 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.813 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.759 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.894 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
