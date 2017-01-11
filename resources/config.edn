@@ -1,0 +1,24 @@
+{
+ :blob {:available-storage-types {:s3 true :fs true}
+        :use-storage-type :fs
+        :fs-blob-path "resources/blobs/"}
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

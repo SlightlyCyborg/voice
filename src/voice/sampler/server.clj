@@ -44,7 +44,7 @@
 
 (defn sampler-post [{session :session params :params}]
   session
-  ;(db/save-blob (get-in params [:blob-data :tempfile]) (session :user-id) (params :sample-id) (params :blob-index))
+  (db/save-blob (get-in params [:blob-data :tempfile]) (get-in session [:user :username]) (params :sample-id) (params :blob-index))
 
   {:satus 200})
 

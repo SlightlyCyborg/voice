@@ -7,6 +7,9 @@
             [lein-figwheel "0.5.8"]]
   :dependencies [[org.clojure/clojure "1.8.0"]
 
+                 [org.apache.logging.log4j/log4j-core "2.7"]
+                 [org.apache.logging.log4j/log4j-api "2.7"]
+
                  ;browser repl
                  [org.clojure/clojurescript "1.9.293"]
                  [lein-figwheel "0.5.8"]
@@ -36,7 +39,7 @@
                  ;for the database
                  [korma "0.4.3"]
                  [org.postgresql/postgresql "9.4.1212"]
-                 [clj-aws-s3 "0.3.10"]
+                 [clj-aws-s3 "0.3.10" :exclusions [joda-time]]
 
 
                  [org.clojure/data.json "0.2.6"]]
@@ -44,6 +47,8 @@
                                   [org.clojure/tools.nrepl "0.2.10"]
                                   [com.cemerick/piggieback "0.2.1"]]}}
   :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
+
+  :jvm-opts ["-Dlog4j.debug=true"]
 
   :cljsbuild {
               :builds [{
