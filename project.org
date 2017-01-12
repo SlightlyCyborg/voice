@@ -171,11 +171,16 @@ The speaker will run on all platforms (android and desktop).
 			 CLOSED: [2016-12-17 Sat 21:41]
 ****** DONE defn create-user
 			 CLOSED: [2016-12-18 Sun 01:38]
-****** TODO defn start-sampling
-****** TODO defn save-sample
-****** TODO defn load-sample
-****** TODO defn initiate-training
-****** TODO defn password-check
+****** DONE defn start-sampling
+			 CLOSED: [2017-01-11 Wed 09:21]
+****** DONE defn save-sample
+			 CLOSED: [2017-01-11 Wed 09:21]
+****** DONE defn load-sample
+			 CLOSED: [2017-01-11 Wed 09:21]
+****** DONE defn initiate-training
+			 CLOSED: [2017-01-11 Wed 09:21]
+****** DONE defn password-check
+			 CLOSED: [2017-01-11 Wed 09:21]
 ****** TODO defn check-credit
 ****** TODO defn add-credit-to-user
 ****** TODO defn start-model
@@ -188,9 +193,16 @@ The speaker will run on all platforms (android and desktop).
 			 CLOSED: [2016-12-18 Sun 13:58]
 ****** DONE defn insert-script-segment-into-page
 			 CLOSED: [2016-12-18 Sun 14:08]
-****** TODO defn update-sample-progress
-****** TODO defn advance-sampler
-****** TODO defn send-sample
+****** DONE defn update-sample-progress
+			 CLOSED: [2017-01-11 Wed 09:22]
+****** DONE defn advance-sampler
+			 CLOSED: [2017-01-11 Wed 09:22]
+****** DONE defn send-sample
+			 CLOSED: [2017-01-11 Wed 09:22]
+****** DONE Fix cleint to send final sample
+			 CLOSED: [2017-01-11 Wed 09:36]
+****** DONE Limit movement to only activated buttons
+			 CLOSED: [2017-01-11 Wed 09:51]
 **** Speaker
 ***** TODO defn load-module
 ***** TODO defn speak

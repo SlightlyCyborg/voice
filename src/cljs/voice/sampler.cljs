@@ -5,6 +5,7 @@
 
 (def script nil)
 (def script-id 1)
+(def debug false)
 
 
 (def sampler-state (atom {:cur-script-index 0 :script nil :audio-blobs {}}))
@@ -102,7 +103,9 @@
       (jq/add-class "unpressable-button")
       (jq/remove-class "activated")))
 
-
+(defn button-active? [elem]
+  (-> ($ elem)
+      (jq/has-class "activated")))
 
 
 ;;voice recording functions-----
@@ -136,6 +139,10 @@
       :contentType false
       :processData false
       :method "POST"
+      :success #(do
+                  (.log js/console "audio has been successfully saved to server")
+                  ;; Mark the successful save in the blob cache
+                  (swap! sampler-state assoc-in [:audio-blobs index :status] :saved))
       :error #(.log js/console "an error occured")})))
 
 (defn play-audio-blob [blob]
@@ -170,42 +177,73 @@
      (do
        (play-audio-blob (get-in @sampler-state [:audio-blobs cur-index :blob]))))))
 
-(defn handle-movement []
+(defn handle-movement
+  "A handler that gets called every time a script movement takes place"
+  []
   (let [cur-index (@sampler-state :cur-script-index)
-        cur-blob (get-in @sampler-state [:audio-blobs cur-index :blob])]
-    (if (not (nil? cur-blob))
+        cur-blob (get-in @sampler-state [:audio-blobs cur-index :blob])
+        cur-blob-status (get-in @sampler-state [:audio-blobs cur-index :status])]
+
+    ;; Check to see that audio has been recorded & check to see that the current blob hasn't been already saved
+    (if (and (not (nil? cur-blob)) (= cur-blob-status :not-saved))
       (do
         (send-audio-blob-to-server cur-blob cur-index)))))
+
+(defn handle-last-sample [next-index]
+  (change-script-box "You have finished this sampling session. <a href=\"/\">Click Here for Dashboard</a>")
+  (update-cur-samples next-index)
+  (deactivate-button :#record-button)
+  (deactivate-button :#forward-button)
+  (deactivate-button :#backward-button))
 
 (defn handle-forward [ev]
   (let [next-index (+ 1 (@sampler-state :cur-script-index))
         script (@sampler-state :script)
         next-audio-blob (get-in @sampler-state [:audio-blobs next-index :blob])]
-    (handle-movement)
-    (if (< next-index (count script))
-      (do (change-script-box (nth script next-index))
-          (update-cur-samples next-index)
-          (swap! sampler-state assoc :cur-script-index next-index)))
-    (if (not (nil? next-audio-blob))
-      (activate-button :#play-button)
-      (deactivate-button :#play-button)))
-  (activate-button :#record-button)
-  (activate-button :#backward-button))
+
+    ;;Do things only if the button is active
+    (if (button-active? :#forward-button)
+     (do 
+       (handle-movement)
+       ;; Handle switch to next sample & send the recorded sample
+       (if (< next-index (count script))
+         (do (change-script-box (nth script next-index))
+             (update-cur-samples next-index)
+             (swap! sampler-state assoc :cur-script-index next-index)
+             (activate-button :#record-button)
+             (activate-button :#backward-button)
+             (deactivate-button :#forward-button))
+         ;;Handle last sample. Update the script box with "You have finished".
+         (if (= next-index (count script))
+           (handle-last-sample next-index)))
+       (if (not (nil? next-audio-blob))
+         (do
+           (activate-button :#play-button)
+           (activate-button :#forward-button))
+         (deactivate-button :#play-button))))))
 
 (defn handle-backward [ev]
   (let [previous-index (- (@sampler-state :cur-script-index) 1)
         script (@sampler-state :script)
         prev-audio-blob (get-in @sampler-state [:audio-blobs previous-index :blob])]
-    (handle-movement)
-    (if (>= previous-index 0)
-      (do (change-script-box (nth script previous-index))
-          (update-cur-samples previous-index)
-          (swap! sampler-state assoc :cur-script-index previous-index)))
+    ;;Do things only if button is activated
+    (if (button-active? :#backward-button)
+     (do
+       (handle-movement)
+       (if (>= previous-index 0)
+         (do (change-script-box (nth script previous-index))
+             (update-cur-samples previous-index)
+             (swap! sampler-state assoc :cur-script-index previous-index)
+             ;;If we are going to the begining, make sure we can't go 'before the begining'
+             (if (= previous-index 0)
+               (deactivate-button :#backward-button))))
 
-    (if (not (nil? prev-audio-blob))
-      (activate-button :#play-button)
-      (deactivate-button :#play-button)))
-  (activate-button :#record-button))
+       (if (not (nil? prev-audio-blob))
+         (do
+           (activate-button :#play-button)
+           (activate-button :#forward-button))
+         (deactivate-button :#play-button))))
+    (activate-button :#record-button)))
 
 (defn handle-record [ev]
   (-> ($ :#record-button)
@@ -230,7 +268,8 @@
            (.stop recorder)
            (-> recorder
                (get-blob-promise)
-               (.then #(handle-audio-blob %)))))))))
+               (.then #(handle-audio-blob %))
+               (.then #(activate-button :#forward-button)))))))))
 
 
 ;;init functions------------------
@@ -246,6 +285,7 @@
     (swap! sampler-state assoc :cur-script-index 0)
     (reset-keypress-handler {32 handle-forward})
     (activate-button :#record-button)
+    (deactivate-button :#forward-button)
     (reset-button-handler :#forward-button handle-forward)
     (reset-button-handler :#backward-button handle-backward)
     (recorder-init)

@@ -1153,3 +1153,89 @@ notifying browser that file changed:  out/voice/sampler.js
 [0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
 [32mSuccessfully compiled "resources/public/js/main.js" in 0.894 seconds.[0m
 notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 3.912 seconds.[0m
+notifying browser that file changed:  resources/public/js/out/goog/deps.js
+notifying browser that file changed:  resources/public/js/out/cljs_deps.js
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 2.872 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 2.015 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.953 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.793 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.76 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.783 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.647 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.618 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.806 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.808 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.733 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.833 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.528 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 1.951 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[31mFailed to compile "resources/public/js/main.js" in 0.389 seconds.[0m
+[36m----  Could not Analyze  src/cljs/voice/sampler.cljs   line:228  column:8  ----[0m
+
+  [1mToo many arguments to if at line 228 src/cljs/voice/sampler.cljs[0m
+
+  [36m226[0m  [36m               (deactivate-button :#backward-button))))[0m
+  [36m227[0m  [36m[0m
+  [33m228[0m  [1m       (if (not (nil? prev-audio-blob))[0m
+  [0m   [0m  [33m       ^--- Too many arguments to if at line 228 src/cljs/voice/sampler.cljs[0m
+  [36m229[0m  [36m         (activate-button :#play-button)[0m
+  [36m230[0m  [36m         (activate-button :#forward-button)[0m
+  [36m231[0m  [36m         (deactivate-button :#play-button))))[0m
+
+[36m----  Analysis Error : Please see src/cljs/voice/sampler.cljs  ----[0m
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.613 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.557 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 2.796 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.776 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 2.675 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 1.828 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 0.562 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js
+[0mCompiling "resources/public/js/main.js" from ["src/cljs/"]...[0m
+[32mSuccessfully compiled "resources/public/js/main.js" in 1.567 seconds.[0m
+notifying browser that file changed:  out/voice/sampler.js

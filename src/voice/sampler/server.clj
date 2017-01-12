@@ -3,6 +3,7 @@
         [compojure.handler :only [site]]
         [korma.core :only [select where]])
   (:require [compojure.core :refer :all]
+            [clojure.data.json :as json]
             [korma.core :as korma]
             [compojure.route :as route]
             [ring.middleware.resource :refer [wrap-resource]]
@@ -37,6 +38,12 @@
    :body (dashboard-page/render req {:samples-completed 2 :samples-total 10})})
 
 
+(defn get-sample-set-blobs [{params :params}]
+  {:status 200
+   :body (json/write-str (db/get-all-sample-set-blobs
+                          (params :username)
+                          (params :sample-set-id)))})
+
 (defn sampler [req]
   {:status 200
    :headers {"Content-Type" "text/html"}
@@ -44,9 +51,18 @@
 
 (defn sampler-post [{session :session params :params}]
   session
-  (db/save-blob (get-in params [:blob-data :tempfile]) (get-in session [:user :username]) (params :sample-id) (params :blob-index))
+  (let [blob-byte-array (org.apache.commons.io.FileUtils/readFileToByteArray
+                         (get-in params [:blob-data :tempfile]))]
+    ;;If it saves properly
+    (if (db/save-blob blob-byte-array
+                   (get-in session [:user :username])
+                   (params :sample-id)
+                   (params :blob-index))
+      ;; ok
+      {:satus 200}
 
-  {:satus 200})
+      ;; save failed
+      {:status 500})))
 
 (defn login-get [req]
   {:status 200
@@ -55,7 +71,7 @@
    :session {:user-id nil}})
 
 (defn login-post [{session :session params :params}]
-  (let [user (db/authenticated? (params :username) (params :password))]
+  (let [user (first (db/authenticated? (params :username) (params :password)))]
     (if (> (count user) 0)
       (do
         (-> (res-util/redirect "/")
@@ -102,6 +118,8 @@
    :headers {"Content-Type" "text/html"}
    :body (test-model-page/render req)})
 
+
+
 (defroutes all-routes
   (GET "/" [] (authenticate dashboard))
   (GET "/sampler" [] (authenticate sampler))
@@ -114,6 +132,7 @@
   (GET "/payment" [] (authenticate payment))
   (GET "/test-model" [] (authenticate test-model))
   (GET "/sample-script" [] script/http-get)
+  (GET "/sample-set-blobs" [] get-sample-set-blobs)
   (route/not-found {:status 401}))
 
 (def app
