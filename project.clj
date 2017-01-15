@@ -23,6 +23,12 @@
                  [org.deeplearning4j/deeplearning4j-ui_2.10 "0.7.1"]
                  ;[org.nd4j/nd4j-cuda-7.5 "0.7.1"] ;for cuda
                  [org.nd4j/nd4j-native "0.7.1"]
+                 [clj-http "2.3.0"]
+                 [hickory "0.7.0"]
+                 [com.github.wendykierp/JTransforms "3.1"]
+                 [com.googlecode.soundlibs/mp3spi "1.9.5-1"]
+
+
 
                  ;for the sampler
                  [clojure-opennlp "0.3.3"]
@@ -39,8 +45,7 @@
                  ;for the database
                  [korma "0.4.3"]
                  [org.postgresql/postgresql "9.4.1212"]
-                 [clj-aws-s3 "0.3.10" :exclusions [joda-time]]
-
+                 [tupelo "0.9.20"]
 
                  [org.clojure/data.json "0.2.6"]]
   :profiles {:dev {:dependencies [[alembic "0.3.2"]

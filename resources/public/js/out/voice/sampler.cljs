@@ -7,7 +7,6 @@
 (def script-id 1)
 (def debug false)
 
-
 (def sampler-state (atom {:cur-script-index 0 :script nil :audio-blobs {}}))
 
 
@@ -31,6 +30,35 @@
       (jq/append script-segment)))
 
 ;Samples functions------------------
+
+
+(defn load-already-saved-samples [blobs]
+  (.log js/console "previously saved audio blobs have been retrieved")
+  (.log js/console blobs)
+  ;; Mark the successful save in the blob cache
+  (doall
+   (map
+    (fn [b]
+      (print (str "blob_id: " (aget b "blob_id")))
+      (aset b "blob"
+            (-> (aget b "blob")
+                (js/Uint8Array.)
+                (js/Blob. (clj->js {:type "audio/wav"}))))
+      (print (str "blob_size: " (.-size (aget b "blob"))))
+      (print (str "blob_type: " (type (aget b "blob"))))
+      (swap! sampler-state assoc-in
+             [:audio-blobs (aget b "blob_id")]
+             (js->clj b :keywordize-keys true)))
+    blobs))
+  (.log js/console (get-in @sampler-state [:audio-blobs])))
+
+(defn fetch-already-saved-samples [sample-set-id]
+  (ajax 
+   {:url "/get-blobs-in-sample-set"
+    :data {:sample-set-id sample-set-id}
+    :dataType "json"
+    :method "GET"
+    :error #(.log js/console "an error occured")}))
 
 (defn update-total-samples [tot]
   (-> ($ :#samples-progress)
@@ -201,6 +229,7 @@
         script (@sampler-state :script)
         next-audio-blob (get-in @sampler-state [:audio-blobs next-index :blob])]
 
+    (print (str "next-audio-blob: " next-audio-blob))
     ;;Do things only if the button is active
     (if (button-active? :#forward-button)
      (do 
@@ -213,7 +242,6 @@
              (activate-button :#record-button)
              (activate-button :#backward-button)
              (deactivate-button :#forward-button))
-         ;;Handle last sample. Update the script box with "You have finished".
          (if (= next-index (count script))
            (handle-last-sample next-index)))
        (if (not (nil? next-audio-blob))
@@ -309,3 +337,4 @@
 
 
 
+@sampler-state

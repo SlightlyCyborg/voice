@@ -2,7 +2,10 @@
  :blob {:available-storage-types {:s3 true :fs true}
         :use-storage-type :fs
         :fs-blob-path "resources/blobs/"}
- }
+
+ :phoneme-recognizer {:segment-time-ms 50
+                      :traditional-fq-range [0 8000]
+                      :pratt-fq-range       [0 5000]}}
 
 
 

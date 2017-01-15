@@ -3,7 +3,7 @@
   (:require [garden.core :refer [css]]))
 
 (def jquery
- [:script {:src "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"}])
+ [:script {:src "js/jquery-3.1.1.js"}])
 
 (def bootstrap
   [:script {:src "bootstrap/js/bootstrap.min.js"}])

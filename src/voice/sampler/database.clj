@@ -1,6 +1,7 @@
 (ns voice.sampler.database
   (:require [aws.sdk.s3 :as s3]
-            [clojure.edn :as edn])
+            [clojure.edn :as edn]
+            [clojure.data.codec.base64 :as b64])
   (:import [org.apache.log4j.Logger]
            java.util.logging.LogManager)
   (:use korma.db
@@ -11,8 +12,10 @@
 (defn parse-number
   "Reads a number from a string. Returns nil if not a number."
   [s]
-  (if (re-find #"^-?\d+\.?\d*$" s)
-    (read-string s)))
+  (if (integer? s)
+    s
+    (if (re-find #"^-?\d+\.?\d*$" s)
+      (read-string s))))
 
 ;;Import all config
 (def config (edn/read-string (slurp "resources/config.edn")))
@@ -130,11 +133,17 @@
   (select blobs
    (where
     {:username    username
-     :sample_set  sample-set-id})))
+     :sample_set  (parse-number sample-set-id)})))
 
 (defn get-all-sample-set-blobs [username sample-set-id]
   (map
-   #(get-blob (% :username) (% :sample_set) (% :blob_id) (keyword (% :data_store_type)))
+   (fn [b]
+     (assoc b :blob
+             (get-blob
+              (b :username)
+              (b :sample_set)
+              (b :blob_id)
+              (keyword (b :data_store_type)))))
    (get-all-sample-set-blobs-metadata username sample-set-id)))
 
 (defn get-blob [username sample-id blob-index data-store-type]
@@ -142,23 +151,5 @@
     (case data-store-type 
       :fs (read-file (str fs-blob-path key))
       :s3 (s3/get-object s3-creds s3-bucket key))))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

@@ -38,11 +38,14 @@
    :body (dashboard-page/render req {:samples-completed 2 :samples-total 10})})
 
 
-(defn get-sample-set-blobs [{params :params}]
-  {:status 200
-   :body (json/write-str (db/get-all-sample-set-blobs
-                          (params :username)
-                          (params :sample-set-id)))})
+(defn get-blobs-in-sample-set [{params :params session :session}]
+  (if  (nil? (params :sample-set-id))
+    {:status 400
+     :body "error 400: need param sample-set-id"}
+   {:status 200
+    :body (json/write-str (db/get-all-sample-set-blobs
+                           (get-in session [:user :username])
+                           (params :sample-set-id)))}))
 
 (defn sampler [req]
   {:status 200
@@ -132,7 +135,7 @@
   (GET "/payment" [] (authenticate payment))
   (GET "/test-model" [] (authenticate test-model))
   (GET "/sample-script" [] script/http-get)
-  (GET "/sample-set-blobs" [] get-sample-set-blobs)
+  (GET "/get-blobs-in-sample-set" [] get-blobs-in-sample-set)
   (route/not-found {:status 401}))
 
 (def app
