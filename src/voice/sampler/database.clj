@@ -1,6 +1,5 @@
 (ns voice.sampler.database
-  (:require [aws.sdk.s3 :as s3]
-            [clojure.edn :as edn]
+  (:require [clojure.edn :as edn]
             [clojure.data.codec.base64 :as b64])
   (:import [org.apache.log4j.Logger]
            java.util.logging.LogManager)

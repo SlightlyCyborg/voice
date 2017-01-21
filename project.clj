@@ -29,8 +29,13 @@
                  [com.googlecode.soundlibs/mp3spi "1.9.5-1"]
 
 
+                 ;; for plotting & graphing
+                 [quil "2.5.0"]
+                 [incanter "1.5.1"]
 
-                 ;for the sampler
+
+
+                 ;; for the sampler
                  [clojure-opennlp "0.3.3"]
                  [compojure "1.5.1"]
                  [hiccup "1.0.5"]
@@ -48,6 +53,9 @@
                  [tupelo "0.9.20"]
 
                  [org.clojure/data.json "0.2.6"]]
+
+  :repositories {"jzy3d-snapshots" "http://maven.jzy3d.org/snapshots"
+                 "jzy3d-releases"  "http://maven.jzy3d.org/releases"}
   :profiles {:dev {:dependencies [[alembic "0.3.2"]
                                   [org.clojure/tools.nrepl "0.2.10"]
                                   [com.cemerick/piggieback "0.2.1"]]}}

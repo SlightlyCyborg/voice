@@ -51,8 +51,8 @@
 
 
 
-;(def vowels (get-vowels))
-;(def mp3s (download-files "resources/ipa-samples/" mp3-url vowels))
+(def vowels (get-vowels))
+(def mp3s (download-files "resources/ipa-samples/" mp3-url vowels))
 
 
 

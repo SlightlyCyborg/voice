@@ -16,7 +16,7 @@ The user can then download their model and plug it into the open source framewor
 - Server that hosts the app. Unknown
 - The compute used to train the model. Unknown
 	
-
+	
 ** Software modules:
 *** The sampler
 **** Description:
