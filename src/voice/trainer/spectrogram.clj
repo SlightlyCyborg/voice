@@ -1,3 +1,8 @@
+;;;; voice.trainer.spectrogram
+;;;; by slightlycyborg
+;;;;
+;;;; Grabs audio from audio files and generates frequency data needed for spectrograms
+
 (ns voice.trainer.spectrogram
   (:require [voice.trainer.spectrogram-graphics :as g])
   (:import org.jtransforms.fft.DoubleFFT_1D
@@ -118,13 +123,52 @@
                (- (count data) 1)))))))
    data))
 
+(defn hanning [data]
+  (map-indexed
+   (fn [n d]
+     (* d 0.5 
+        (- 1
+           (cos
+            (/ (* 2 pi n)
+               (- (count data) 1))))))
+   data))
+
 (defn normalize-data [spectrogram-data]
   (let [max (reduce max 0 (flatten spectrogram-data))]
     (mapv
-      (fn [d] (/ d max))
-      spectrogram-data)))
+     #(mapv
+       (fn [d] (/ d (+ 0.00001 max)))
+       %)
+     spectrogram-data)))
+
+
+
+(defn normalize-chunk [chunk]
+  (let [max (reduce max 0 (flatten chunk))]
+     (mapv
+       (fn [d] (/ d (+ 0.000001 max)))
+       chunk)))
+
+(defn threshold [chunk]
+  (let [min (reduce min 0 (flatten chunk))
+        avg (/ (reduce + 0 (flatten chunk))
+               (count (flatten chunk)))]
+    (mapv
+     #(if ( < % ( + min (- avg min)))
+       (* 0.2 %) 
+        %)
+     (flatten chunk))))
+
+(defn fft-graph [n data]
+  (view-fq-plot
+   44100 n
+   (let [d (fft-rv-to-magnitudes data)
+         max (reduce max 0 (flatten d))]
+     (mapv (fn [d] (/ d max)) d))
+   max-fq-for-spectrogram))
 
 (defn audio-fft
+  
   [data n
    {audio-waveform? :audio-waveform? fq-graph? :fq-graph? no-rv? :no-rv?}]
 
@@ -135,19 +179,15 @@
     (-> transformer
         (.realForward data))
     (if fq-graph?
-      (view-fq-plot
-       44100 n
-       (let [d (fft-rv-to-magnitudes data)
-             max (reduce max 0 (flatten d))]
-        (mapv (fn [d] (/ d max)) d))
-       max-fq-for-spectrogram))
+      (fft-graph n data))
     ;(println "count-afterfft" (count data))
     (if (not no-rv?)
       (-> data
           ((partial mapv #(identity %)))
           (subvec 0 n)
           fft-rv-to-magnitudes
-          normalize-data
+          normalize-chunk
+          ((partial mapv #(/ 1 (+ 1.0 (exp (* -5.0 (- % 0.5)))))))
           (subvec 0 (int (/ 8000 (/ 44100 n))))))))
 
 
@@ -158,53 +198,25 @@
 
 
 (defn spectrogram-from-file
-  [filename num-of-fq-bins window-size
-   & {:keys [audio-waveform
-             fq-graph
-             no-rv]
-      :or {audio-waveform false
-           fq-graph false
-           no-rv false}}]
+  [filename num-of-fq-bins window-size]
 
   (if (not (<= num-of-fq-bins (/ window-size 2)))
     (throw (Exception. "num-of-fq-bins must be <= n/2")))
   (g/draw-spectrogram 
+   
     (map
       #(do
          (audio-fft
-          (double-array %) num-of-fq-bins 
-          {:audio-waveform? audio-waveform
-           :fq-graph? fq-graph
-           :no-rv? no-rv}))
+          (double-array  %) num-of-fq-bins 
+          {:audio-waveform? false 
+           :fq-graph? false 
+           :no-rv? false}))
       (partition window-size
                  (int (* (- 1 window-overlap) window-size))
                  (get-data filename)))
     0 0) :done)
 
 
-(defn spectrogram-from-file-data
-  [filename num-of-fq-bins window-size
-   & {:keys [audio-waveform
-             fq-graph
-             no-rv]
-      :or {audio-waveform false
-           fq-graph false
-           no-rv false}}]
-
-  (if (not (<= num-of-fq-bins (/ window-size 2)))
-    (throw (Exception. "num-of-fq-bins must be <= n/2")))
-  (doall
-   (normalize-data
-    (map
-      #(do
-         (audio-fft
-          (double-array %) num-of-fq-bins 
-          {:audio-waveform? audio-waveform
-           :fq-graph? fq-graph
-           :no-rv? no-rv}))
-      (partition window-size
-                 (int (* (- 1 window-overlap) window-size))
-                 (get-data filename))))))
 
 
 
