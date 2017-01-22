@@ -4,7 +4,8 @@
 ;;;; Grabs audio from audio files and generates frequency data needed for spectrograms
 
 (ns voice.trainer.spectrogram
-  (:require [voice.trainer.spectrogram-graphics :as g])
+  (:require [voice.trainer.spectrogram-graphics :as g]
+            [voice.trainer.audio-data :as a])
   (:import org.jtransforms.fft.DoubleFFT_1D
            org.apache.commons.io.FilenameUtils
            javax.sound.sampled.AudioInputStream
@@ -16,7 +17,7 @@
 
 
 (def filename-path "resources/ipa-samples/")
-(def max-fq-for-spectrogram 8000)
+(def max-fq 8000)
 (def hamming-alpha 0.54)
 (def hamming-beta  0.46)
 (def window-overlap 0.5)
@@ -33,115 +34,32 @@
                     #(str filename-path %)
                     (get-filenames filename-path)))
 
-(def header-offsets
-  {:wav 44})
+;; Data manipulation
+(def hanning-cos-cache (atom {}))
 
-(defn slurp-bytes
-  "Slurp the bytes from a slurpable thing"
-  [x]
-  (with-open [out (java.io.ByteArrayOutputStream.)]
-    (clojure.java.io/copy (clojure.java.io/input-stream x) out)
-    (.toByteArray out)))
+(defn in-cos-cache? [n]
+  (if (not (nil? (get @hanning-cos-cache n)))
+    true
+    false))
 
-
-(defn get-filetype [filename]
-  (case (FilenameUtils/getExtension filename)
-    "wav" :wav
-    "mp3" :mp3))
-
-
-(defn bytes-to-short [bytes]
-  (let [shorts (short-array (/ (count bytes) 2))]
-    (-> (java.nio.ByteBuffer/wrap bytes)
-        (.order java.nio.ByteOrder/LITTLE_ENDIAN)
-        (.asShortBuffer)
-        (.get shorts))
-    shorts))
-
-(defn byte-array-to-doubles [b]
-   (double-array (bytes-to-short b)))
-
-(defn parse-wav-header [b]
-  (-> (map
-       #(- (bit-and (int %) 0xff) 0x7f)
-       b)
-     (#(print (subvec % 0 44)))))
-
-(defn grab-data-from-mp3 [filename]
-  (try
-    (let [f   (File. filename)
-         in (AudioSystem/getAudioInputStream f)
-         din nil 
-         base-format (.getFormat in)
-         decodedFormat (AudioFormat.
-                        AudioFormat$Encoding/PCM_SIGNED
-                        (.getSampleRate base-format)
-                        16
-                        (.getChannels base-format)
-                        (* 2 (.getChannels base-format))
-                        (.getSampleRate base-format)
-                        false)]
-     (-> (AudioSystem/getAudioInputStream decodedFormat in)
-         (slurp-bytes)))
-    (catch Exception e (print e))))
-
-(defn fft-rv-to-magnitudes [fft-rv]
-  ;(println "count: " (count fft-rv))
-  (->> (into [] fft-rv)
-       (partition 2)
-   (mapv #(sqrt (+ (* (first %) (first %)) (* (second %) (second %)))))))
-
-
-(defn grab-double-data-from-mp3-file [filename]
-  (->  filename
-       grab-data-from-mp3
-       byte-array-to-doubles))
-
-(defn view-audio-plot [audio-data start-index stop-index]
-  (-> (xy-plot
-       (range)
-       (subvec
-        (into [] audio-data) start-index stop-index))
-      (view)))
-
-(defn view-fq-plot [bitrate bins audio-data max-fq]
-  (-> (xy-plot
-       (map #(* % (/ bitrate bins)) (range))
-       (subvec
-        (into [] audio-data) 0 (int (/ max-fq (/ bitrate bins)))))
-      (view)))
-
-
-(defn hamming [data]
-  (map-indexed
-   (fn [n d]
-     (* d
-      (- hamming-alpha
-        (* hamming-beta
-           (cos
-            (/ (* 2 pi n)
-               (- (count data) 1)))))))
-   data))
+(defn hanning-cos [data n]
+  (* 0.5 (- 1 (cos (/ (* 2 pi n) (- (count data) 1))))))
 
 (defn hanning [data]
   (map-indexed
    (fn [n d]
-     (* d 0.5 
-        (- 1
-           (cos
-            (/ (* 2 pi n)
-               (- (count data) 1))))))
+     (if (in-cos-cache? n)
+      (* d (@hanning-cos-cache n))
+      (-> (hanning-cos data n)
+          (#(do (swap! hanning-cos-cache assoc n %)
+                (* d %))))))
    data))
 
 (defn normalize-data [spectrogram-data]
   (let [max (reduce max 0 (flatten spectrogram-data))]
-    (mapv
-     #(mapv
-       (fn [d] (/ d (+ 0.00001 max)))
-       %)
-     spectrogram-data)))
-
-
+    (mapv #(mapv
+            (fn [d] (/ d (+ 0.00001 max)))
+            %) spectrogram-data)))
 
 (defn normalize-chunk [chunk]
   (let [max (reduce max 0 (flatten chunk))]
@@ -149,75 +67,56 @@
        (fn [d] (/ d (+ 0.000001 max)))
        chunk)))
 
-(defn threshold [chunk]
-  (let [min (reduce min 0 (flatten chunk))
-        avg (/ (reduce + 0 (flatten chunk))
-               (count (flatten chunk)))]
-    (mapv
-     #(if ( < % ( + min (- avg min)))
-       (* 0.2 %) 
-        %)
-     (flatten chunk))))
+;;; MAIN FUNCTIONS
 
-(defn fft-graph [n data]
-  (view-fq-plot
-   44100 n
-   (let [d (fft-rv-to-magnitudes data)
-         max (reduce max 0 (flatten d))]
-     (mapv (fn [d] (/ d max)) d))
-   max-fq-for-spectrogram))
+(defn fft-rv-to-magnitudes [fft-rv]
+  ;(println "count: " (count fft-rv))
+  (->> (into [] fft-rv)
+       (partition 2)
+   (mapv #(sqrt (+ (* (first %) (first %)) (* (second %) (second %)))))))
+
+(defn run-fft!! [transformer data]
+  (-> transformer
+      (.realForward data)))
+
+(defn process-fft-result [result n]
+(-> result
+        ((partial mapv #(identity %)))
+        (subvec 0 n)
+        fft-rv-to-magnitudes
+        normalize-chunk
+        ((partial mapv #(/ 1 (+ 1.0 (exp (* -5.0 (- % 0.5)))))))
+        (subvec 0 (int (/ max-fq (/ 44100 n))))))
 
 (defn audio-fft
-  
-  [data n
-   {audio-waveform? :audio-waveform? fq-graph? :fq-graph? no-rv? :no-rv?}]
-
-  ;(println "\n\nnew-fft")
-  ;(println "count-orig: " (count data))
+  [data n]
   (let [transformer  (DoubleFFT_1D. n)]
-    (if audio-waveform? (view-audio-plot data 0 (count data)))
-    (-> transformer
-        (.realForward data))
-    (if fq-graph?
-      (fft-graph n data))
-    ;(println "count-afterfft" (count data))
-    (if (not no-rv?)
-      (-> data
-          ((partial mapv #(identity %)))
-          (subvec 0 n)
-          fft-rv-to-magnitudes
-          normalize-chunk
-          ((partial mapv #(/ 1 (+ 1.0 (exp (* -5.0 (- % 0.5)))))))
-          (subvec 0 (int (/ 8000 (/ 44100 n))))))))
-
+    (run-fft!! transformer data)
+    (process-fft-result data n)))
 
 (defn get-data [filename]
-  (case (get-filetype filename)
-    :mp3 (grab-double-data-from-mp3-file filename)))
+  (case (a/get-filetype filename)
+    :mp3 (a/grab-double-data-from-mp3-file filename)))
 
+(defn catch-fft-errors
+  [num-of-fq-bins window-size]
+  (if (not (<= num-of-fq-bins (/ window-size 2)))
+    (throw (Exception. "num-of-fq-bins must be <= n/2"))))
 
+(defn chunk-data [f window-size]
+  (partition window-size
+             (int (* (- 1 window-overlap) window-size))
+             f))
 
 (defn spectrogram-from-file
-  [filename num-of-fq-bins window-size]
+  [filename num-of-fq-bins window-size draw?]
 
-  (if (not (<= num-of-fq-bins (/ window-size 2)))
-    (throw (Exception. "num-of-fq-bins must be <= n/2")))
-  (g/draw-spectrogram 
-   
-    (map
-      #(do
-         (audio-fft
-          (double-array  %) num-of-fq-bins 
-          {:audio-waveform? false 
-           :fq-graph? false 
-           :no-rv? false}))
-      (partition window-size
-                 (int (* (- 1 window-overlap) window-size))
-                 (get-data filename)))
-    0 0) :done)
-
-
-
+  (catch-fft-errors num-of-fq-bins window-size)
+  (-> (get-data filename)
+      (chunk-data  window-size)
+      ((partial mapv
+            #(audio-fft (double-array (hanning %)) num-of-fq-bins)))
+    (#(if draw? (g/draw-spectrogram %)))) :done)
 
 
 ;(spectrogram-from-file (first ipa-filenames) 256 512)

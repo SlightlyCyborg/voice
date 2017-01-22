@@ -8,13 +8,13 @@
             [quil.middleware :as m]))
 
 
-(def size [1000 200])
+(def size [1000 600])
 
 (defn gen-fake-data [length bins]
   (into []
         (map
          (fn [time-slice]
-           (into [] (map (fn [bin] (/ (+ time-slice bin) (+ length bins))) (range bins))))
+           (into [] (map (fn [bin] (/ time-slice  length ))) (range bins))))
          (range length))))
 
 ;;;; START HEAT MAP ------------------------------
@@ -117,13 +117,11 @@
 ;;;; START ENTRY-POINT----------------------------
 
 (defn draw-spectrogram
-  [data bit-depth bit-rate]
+  [data]
 
   (defn setup []
     (q/frame-rate 0.1)
-    {:data (clean-data data)
-     :bit-depth bit-depth
-     :bit-rate bit-rate})
+    {:data (clean-data data)})
 
  (q/defsketch example ;; Define a new sketch named example
    :title "Spectrogram" ;; Set the title of the sketch
@@ -141,7 +139,7 @@
 
   (defn restart []
     (stop) 
-    (draw-spectrogram data bit-depth bit-rate)))
+    (draw-spectrogram data)))
 
 
 ;;;; STOP  ENTRY-POINT----------------------------
