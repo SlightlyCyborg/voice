@@ -15,7 +15,7 @@
         (map
          (fn [time-slice]
            (into [] (map (fn [bin] (/ time-slice  length ))) (range bins))))
-         (range length))))
+         (range length)))
 
 ;;;; START HEAT MAP ------------------------------
 ;;;;

@@ -73,24 +73,29 @@
   ;(println "count: " (count fft-rv))
   (->> (into [] fft-rv)
        (partition 2)
-   (mapv #(sqrt (+ (* (first %) (first %)) (* (second %) (second %)))))))
+       (mapv #(sqrt (+ (* (first %) (first %)) (* (second %) (second %)))))))
+
+(defn fft-rv-to-phase-angle [fft-rv]
+  (->> (into [] fft-rv)
+       (partition 2)
+       (mapv #(atan2 (second %) (first %)))
+       ))
 
 (defn run-fft!! [transformer data]
   (-> transformer
       (.realForward data)))
 
 (defn process-fft-result [result n]
-(-> result
-        ((partial mapv #(identity %)))
-        (subvec 0 n)
-        fft-rv-to-magnitudes
-        normalize-chunk
-        ((partial mapv #(/ 1 (+ 1.0 (exp (* -5.0 (- % 0.5)))))))
-        (subvec 0 (int (/ max-fq (/ 44100 n))))))
+  (-> result
+      ((partial mapv #(identity %)))
+      fft-rv-to-magnitudes
+      normalize-chunk
+      ((partial mapv #(/ 1 (+ 1.0 (exp (* -5.0 (- % 0.5)))))))
+      (subvec 0 (int (/ max-fq (/ 44100 (* 2 n)))))))
 
 (defn audio-fft
   [data n]
-  (let [transformer  (DoubleFFT_1D. n)]
+  (let [transformer  (DoubleFFT_1D. (* 2 n))]
     (run-fft!! transformer data)
     (process-fft-result data n)))
 
@@ -103,19 +108,19 @@
   (if (not (<= num-of-fq-bins (/ window-size 2)))
     (throw (Exception. "num-of-fq-bins must be <= n/2"))))
 
-(defn chunk-data [f window-size]
+(defn chunk-data [f window-size overlap]
   (partition window-size
-             (int (* (- 1 window-overlap) window-size))
+             (int (* (- 1 overlap) window-size))
              f))
 
 (defn spectrogram-from-file
-  [filename num-of-fq-bins window-size draw?]
+  [filename window-size draw?]
 
-  (catch-fft-errors num-of-fq-bins window-size)
+  (catch-fft-errors (/ window-size 2) window-size)
   (-> (get-data filename)
-      (chunk-data  window-size)
+      (chunk-data  window-size window-overlap)
       ((partial mapv
-            #(audio-fft (double-array (hanning %)) num-of-fq-bins)))
+            #(audio-fft (double-array (hanning %)) (/ window-size 2))))
     (#(if draw? (g/draw-spectrogram %)))) :done)
 
 
